@@ -54,14 +54,45 @@ export function renderHome() {
             <div class="card-foot">${arrowLink(base, g.slug, "Explore")}</div>
           </article>`
   ).join("\n          ");
-  const ojas = OJAS.map(
-    (o, i) => `<div class="feature-brand reveal" style="--i:${i}"><span class="ico ${cyc(i)}">${icon(o.icon)}</span><h3>${o.title}</h3><p>${o.text}</p></div>`
-  ).join("\n          ");
-  const credibility = [
-    { icon: "clock", t: "Built on Real Experience", d: "Backed by years of hands-on work across web, software, eCommerce and digital platforms." },
-    { icon: "code", t: "Full-Stack Engineering", d: "From strategy and UX to development, deployment and optimization." },
-    { icon: "globe", t: "Global Collaboration", d: "Remote-first delivery designed for businesses across markets and time zones." },
-    { icon: "infinity", t: "Long-Term Partnership", d: "We build maintainable solutions designed to evolve with the business." }
+  // 05 — Digital Capability Engine (connected journey)
+  const engine = [
+    { no: "01", icon: "search", t: "Discover", d: "Understand the opportunity." },
+    { no: "02", icon: "brush", t: "Design", d: "Shape the experience." },
+    { no: "03", icon: "code", t: "Build", d: "Engineer the product." },
+    { no: "04", icon: "plug", t: "Connect", d: "Integrate systems and intelligence." },
+    { no: "05", icon: "growth", t: "Grow", d: "Optimize what comes next." }
+  ];
+  // 06 — Ojas principles (orbital diamond positions on desktop)
+  const principles = [
+    { icon: "bolt", t: "Energy", d: "Momentum for ambitious ideas.", col: 2, row: 1, ac: "ico-orange" },
+    { icon: "eye", t: "Clarity", d: "Complexity made understandable.", col: 1, row: 2, ac: "ico-pink" },
+    { icon: "spark", t: "Innovation", d: "Better ways to build and solve.", col: 3, row: 2, ac: "ico-purple" },
+    { icon: "growth", t: "Growth", d: "Technology connected to progress.", col: 1, row: 3, ac: "ico-cyan" },
+    { icon: "infinity", t: "Transformation", d: "Ideas turned into meaningful outcomes.", col: 3, row: 3, ac: "ico-blue" }
+  ];
+  // 07 — How we turn ideas into impact
+  const steps = [
+    { no: "01", t: "Understand", d: "We start with the problem, the users and the business outcome." },
+    { no: "02", t: "Architect", d: "We define the right experience, technology and delivery approach." },
+    { no: "03", t: "Create", d: "Design and engineering move together to build the solution." },
+    { no: "04", t: "Validate", d: "We test performance, usability and technical quality." },
+    { no: "05", t: "Evolve", d: "After launch, we improve, optimize and scale." }
+  ];
+  // 08 — Why OjarisLabs (bento)
+  const bento = [
+    { t: "Real Experience", d: "A new technology brand shaped by years of hands-on work across websites, software, eCommerce, integrations and digital platforms.", icon: "clock", ac: "ico-orange", lg: true },
+    { t: "Full-Stack Thinking", d: "Strategy, UX, engineering, deployment and optimization connected from the beginning.", icon: "layers", ac: "ico-purple" },
+    { t: "Flexible Collaboration", d: "A practical delivery approach designed to work across businesses, projects and time zones.", icon: "globe", ac: "ico-cyan" },
+    { t: "Built to Evolve", d: "We focus on maintainable technology and long-term value — not just getting something live.", icon: "infinity", ac: "ico-blue", lg: true }
+  ];
+  // 09 — Technology ecosystem
+  const ecosystem = [
+    { icon: "web", ac: "ico-orange", t: "Web & CMS", items: ["WordPress", "WooCommerce", "Webflow", "Squarespace"] },
+    { icon: "cart", ac: "ico-pink", t: "Commerce", items: ["Shopify", "WooCommerce", "Custom eCommerce"] },
+    { icon: "code", ac: "ico-purple", t: "Engineering", items: ["PHP", "Laravel", "JavaScript", "React", "Node.js"] },
+    { icon: "ai", ac: "ico-blue", t: "AI & Automation", items: ["OpenAI integrations", "AI workflows", "API automation", "GoHighLevel"] },
+    { icon: "cloud", ac: "ico-cyan", t: "Cloud & Infrastructure", items: ["AWS", "Cloudflare", "Linux", "Modern hosting"] },
+    { icon: "brush", ac: "ico-pink", t: "Design & Growth", items: ["Figma", "UI/UX", "Technical SEO", "Analytics"] }
   ];
   const main = `
   <main id="main">
@@ -102,46 +133,112 @@ export function renderHome() {
       </div>
     </section>
 
-    <section class="section--tight bg-dark">
-      <div class="container">${capStrip()}</div>
-    </section>
-
-    <section class="section bg-dark" style="padding-top:0">
+    <!-- 05 — Digital Capability Engine -->
+    <section class="section bg-light">
       <div class="container">
         <div class="section-head section-head--center">
-          ${eyebrow("Our Philosophy", true)}
-          <h2>The <span class="gradient-text">Ojas</span> in Everything We Build.</h2>
-          <p>Ojas represents intelligent energy — the force behind clarity, momentum and meaningful progress. At OjarisLabs, that idea shapes how we approach technology: with focus, curiosity and the drive to turn complex challenges into useful digital experiences.</p>
+          ${eyebrow("One Partner. The Full Digital Journey.", true)}
+          <h2>From Idea to Impact.<br /><span class="gradient-text">Everything Connected.</span></h2>
+          <p>Great digital products are rarely built by one discipline alone. OjarisLabs brings strategy, design, engineering, automation, infrastructure and growth together so every part of the digital journey works as one connected system.</p>
         </div>
-        <div class="card-grid cols-5">
-          ${ojas}
+        <div class="journey">
+          <span class="journey-line" aria-hidden="true"></span>
+          ${engine.map((s, i) => `<div class="journey-step reveal" style="--i:${i}"><div class="jnode"><span class="jno">${s.no}</span>${icon(s.icon)}</div><h3>${s.t}</h3><p>${s.d}</p></div>`).join("\n          ")}
         </div>
       </div>
     </section>
 
+    <!-- 06 — The Ojas Principle -->
+    <section class="section bg-dark ojas-section">
+      <div class="container">
+        <div class="split" style="align-items:center">
+          <div class="reveal">
+            ${eyebrow("The Idea Behind the Name")}
+            <h2>The Ojas in<br /><span class="gradient-text">Everything We Build.</span></h2>
+            <p style="margin-top:1.1rem">Ojas represents intelligent energy — the force behind clarity, momentum and meaningful progress.</p>
+            <p style="margin-top:.9rem">At OjarisLabs, that idea shapes how we approach technology: bringing focused thinking, thoughtful engineering and creative energy together to turn complex challenges into useful digital experiences.</p>
+          </div>
+          <div class="ojas-orbit reveal">
+            <span class="ojas-glow" aria-hidden="true"></span>
+            <span class="ojas-ring" aria-hidden="true"></span>
+            <div class="ojas-core"><img src="${base}assets/brand/ojarislabs-mark.svg" width="48" height="48" decoding="async" alt="" /><span>OJAS</span></div>
+            ${principles.map((p) => `<div class="ojas-node" style="grid-column:${p.col};grid-row:${p.row}"><span class="oi ${p.ac}">${icon(p.icon)}</span><h3>${p.t}</h3><p>${p.d}</p></div>`).join("\n            ")}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 07 — How we turn ideas into impact -->
+    <section class="section bg-white">
+      <div class="container">
+        <div class="section-head section-head--center">
+          ${eyebrow("How We Work", true)}
+          <h2>Less Complexity.<br /><span class="gradient-text">More Momentum.</span></h2>
+          <p>We combine business thinking, design and engineering to move from an idea to a working digital product without unnecessary complexity.</p>
+        </div>
+        <div class="steps">
+          ${steps.map((s, i) => `<div class="step-row reveal" style="--i:${i}"><div class="step-num"><span>${s.no}</span></div><div class="step-card"><h3>${s.t}</h3><p>${s.d}</p></div></div>`).join("\n          ")}
+        </div>
+      </div>
+    </section>
+
+    <!-- 08 — Why OjarisLabs (bento) -->
     <section class="section bg-light">
       <div class="container">
         <div class="section-head section-head--center">
           ${eyebrow("Why OjarisLabs", true)}
           <h2>Built on Experience.<br /><span class="gradient-text">Focused on What Comes Next.</span></h2>
         </div>
-        <div class="card-grid cols-4">
-          ${credibility.map((c, i) => `<article class="card reveal" style="--i:${i}"><span class="card-icon ${cyc(i)}">${icon(c.icon)}</span><h3>${c.t}</h3><p>${c.d}</p></article>`).join("\n          ")}
+        <div class="bento">
+          ${bento.map((b, i) => `<article class="bento-card reveal${b.lg ? " bento-lg" : ""}" style="--i:${i}"><span class="card-icon ${b.ac}">${icon(b.icon)}</span><h3>${b.t}</h3><p>${b.d}</p></article>`).join("\n          ")}
         </div>
       </div>
     </section>
 
-    <section class="section bg-white">
-      <div class="container container--narrow">
+    <!-- 09 — Technology ecosystem -->
+    <section class="section bg-dark">
+      <div class="container">
         <div class="section-head section-head--center">
-          ${eyebrow("FAQ", true)}
-          <h2>Questions, <span class="gradient-text">answered.</span></h2>
+          ${eyebrow("Built Across the Modern Digital Stack", true)}
+          <h2>The Right Technology.<br /><span class="gradient-text">For the Right Problem.</span></h2>
         </div>
-        ${faqBlock(HOME_FAQ)}
+        <div class="card-grid cols-3">
+          ${ecosystem.map((c, i) => `<article class="card card--dark reveal" style="--i:${i % 3}"><span class="card-icon ${c.ac}">${icon(c.icon)}</span><h3>${c.t}</h3><div class="tech-chips">${c.items.map((x) => `<span>${x}</span>`).join("")}</div></article>`).join("\n          ")}
+        </div>
+        <p style="text-align:center;font-size:var(--fs-xs);color:var(--text-on-dark-muted);margin-top:1.75rem">Technologies we build with. Names and logos shown are not clients or official partners.</p>
       </div>
     </section>
 
-    ${ctaBanner(base, "Let's Build Something That Lasts", "Tell us what you're trying to achieve — we'll help you get there.")}
+    <!-- 10 — FAQ -->
+    <section class="section bg-light">
+      <div class="container">
+        <div class="split" style="align-items:start">
+          <div class="reveal">
+            ${eyebrow("FAQ")}
+            <h2>Questions Before<br /><span class="gradient-text">We Build?</span></h2>
+            <p class="lead" style="margin-top:1rem">Clear answers to help you understand how we work and whether OjarisLabs is the right fit for your next digital project.</p>
+            <p style="margin-top:1rem">Still have a question? <a href="${base}contact.html" style="color:var(--oj-purple);font-weight:600">Let's Connect &rarr;</a></p>
+          </div>
+          <div>
+            ${faqBlock(HOME_FAQ)}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 11 — Final CTA -->
+    <section class="cta-hero">
+      <img class="cta-orbital" src="${base}assets/images/hero-orbital.svg" width="360" height="360" loading="lazy" decoding="async" alt="" />
+      <div class="container container--narrow" style="position:relative;z-index:1;text-align:center">
+        ${eyebrow("Have an Idea?", true)}
+        <h2 style="color:#fff">Let's Build What<br /><span class="gradient-text">Comes Next.</span></h2>
+        <p style="color:rgba(255,255,255,.9);max-width:60ch;margin:1.1rem auto 2rem">Whether you're launching something new, improving an existing platform or exploring what AI and automation can do for your business, let's start with a conversation.</p>
+        <div class="hero-actions" style="justify-content:center">
+          <a class="btn btn--primary btn--lg" href="${base}contact.html">Start a Project ${icon("arrow", "arrow")}</a>
+          <a class="btn btn--outline-light btn--lg" href="${base}services.html">Explore Our Services</a>
+        </div>
+      </div>
+    </section>
   </main>`;
 
   const jsonLd = [

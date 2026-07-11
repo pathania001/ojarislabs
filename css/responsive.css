@@ -62,6 +62,19 @@
   .cap-strip { grid-template-columns: repeat(2, 1fr); }
   .article-layout { grid-template-columns: 1fr; }
   .toc { position: static; }
+
+  /* homepage redesigned sections */
+  .journey { grid-template-columns: 1fr; gap: 0; max-width: 460px; margin-inline: auto; }
+  .journey-line { top: 0; bottom: 0; left: 34px; right: auto; width: 3px; height: auto; }
+  .journey-step { text-align: left; display: grid; grid-template-columns: 68px 1fr; gap: 1rem; align-items: start; padding-bottom: 2rem; }
+  .journey-step .jnode { margin: 0; }
+  .journey-step h3 { margin-top: 0.5rem; }
+  .ojas-orbit { grid-template-columns: 1fr; min-height: 0; gap: 0.85rem; }
+  .ojas-orbit > * { grid-column: auto !important; grid-row: auto !important; }
+  .ojas-ring { display: none; }
+  .ojas-core { order: -1; }
+  .bento { grid-template-columns: 1fr; }
+  .bento-lg { grid-column: auto; }
 }
 
 /* ---- Small tablet ---- */
