@@ -62,22 +62,39 @@
     return group && group[key] ? group[key] : null;
   };
 
-  /* ---------- Scroll reveal + count-up + process line ---------- */
+  /* ---------- Scroll reveal + count-up + process line ----------
+     PROGRESSIVE ENHANCEMENT + FAIL-SAFE:
+     - Content is visible by default (CSS). The `js` class (which hides reveal
+       elements to animate them) is added ONLY here, after we've confirmed
+       IntersectionObserver support and set up the observer.
+     - If main.js never loads, throws, IO is unsupported, or reduced-motion is
+       on, the `js` class is never applied (or is removed) and all content
+       stays/becomes visible. No essential content can be hidden by JS. */
   const revealEls = $$(".reveal");
   const countEls = $$("[data-count]");
   const processEls = $$(".process");
+  const docEl = document.documentElement;
+
+  const showProcess = (el) => {
+    const line = $(".line-progress", el);
+    if (line) line.style.width = "84%";
+  };
+  const revealAll = () => {
+    revealEls.forEach((el) => el.classList.add("is-visible"));
+    processEls.forEach(showProcess);
+  };
 
   const animateCount = (el) => {
     const conf = resolveStat(el);
     const target = conf ? conf.value : parseFloat(el.dataset.count);
     const suffix = conf && conf.suffix != null ? conf.suffix : el.dataset.suffix || "";
+    if (isNaN(target)) return;
     const decimals = (String(target).split(".")[1] || "").length;
     const duration = 1400;
     const start = performance.now();
     const step = (now) => {
       const p = Math.min((now - start) / duration, 1);
-      const eased = 1 - Math.pow(1 - p, 3);
-      const val = target * eased;
+      const val = target * (1 - Math.pow(1 - p, 3));
       el.textContent = val.toFixed(decimals) + suffix;
       if (p < 1) requestAnimationFrame(step);
       else el.textContent = target.toFixed(decimals) + suffix;
@@ -85,36 +102,37 @@
     requestAnimationFrame(step);
   };
 
-  if ("IntersectionObserver" in window && !prefersReduced) {
-    const io = new IntersectionObserver(
-      (entries, obs) => {
-        entries.forEach((entry) => {
-          if (!entry.isIntersecting) return;
-          const el = entry.target;
-          if (el.classList.contains("reveal")) el.classList.add("is-visible");
-          if (el.hasAttribute("data-count")) animateCount(el);
-          if (el.classList.contains("process")) {
-            const line = $(".line-progress", el);
-            if (line) line.style.width = "84%";
-          }
-          obs.unobserve(el);
-        });
-      },
-      { rootMargin: "0px 0px -8% 0px", threshold: 0.15 }
-    );
-    [...revealEls, ...countEls, ...processEls].forEach((el) => io.observe(el));
-  } else {
-    revealEls.forEach((el) => el.classList.add("is-visible"));
-    countEls.forEach((el) => {
-      const conf = resolveStat(el);
-      const target = conf ? conf.value : parseFloat(el.dataset.count);
-      const suffix = conf && conf.suffix != null ? conf.suffix : el.dataset.suffix || "";
-      el.textContent = String(target) + suffix;
-    });
-    processEls.forEach((el) => {
-      const line = $(".line-progress", el);
-      if (line) line.style.width = "84%";
-    });
+  try {
+    if (!("IntersectionObserver" in window) || prefersReduced) {
+      revealAll(); // never hide content
+      countEls.forEach((el) => {
+        const conf = resolveStat(el);
+        const target = conf ? conf.value : parseFloat(el.dataset.count);
+        const suffix = conf && conf.suffix != null ? conf.suffix : el.dataset.suffix || "";
+        if (!isNaN(target)) el.textContent = String(target) + suffix;
+      });
+    } else {
+      // Enable the hide-then-reveal animation now that we can observe.
+      docEl.classList.add("js");
+      const io = new IntersectionObserver(
+        (entries, obs) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            const el = entry.target;
+            if (el.classList.contains("reveal")) el.classList.add("is-visible");
+            if (el.hasAttribute("data-count")) animateCount(el);
+            if (el.classList.contains("process")) showProcess(el);
+            obs.unobserve(el);
+          });
+        },
+        { rootMargin: "0px 0px -5% 0px", threshold: 0 }
+      );
+      [...revealEls, ...countEls, ...processEls].forEach((el) => io.observe(el));
+    }
+  } catch (err) {
+    // Any failure → guarantee everything is visible.
+    docEl.classList.remove("js");
+    revealAll();
   }
 
   /* ---------- Testimonial slider ---------- */

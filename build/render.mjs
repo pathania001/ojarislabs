@@ -224,10 +224,18 @@ export function renderServices() {
 
     ${stackStrip()}
 
-    <section class="section bg-white" style="padding-top:0">
-      <div class="container container--narrow">
-        <div class="section-head section-head--center">${eyebrow("FAQ", true)}<h2>Working with <span class="gradient-text">OjarisLabs.</span></h2></div>
-        ${faqBlock(SERVICES_FAQ)}
+    <section class="section bg-light">
+      <div class="container">
+        <div class="split" style="align-items:start">
+          <div class="reveal">
+            ${eyebrow("FAQ")}
+            <h2>Questions Before <span class="gradient-text">We Build?</span></h2>
+            <p class="lead" style="margin-top:1rem">Clear answers for a smoother start. Still unsure about the right approach? <a href="${base}contact.html" style="color:var(--oj-purple);font-weight:600">Talk to us &rarr;</a></p>
+          </div>
+          <div>
+            ${faqBlock(SERVICES_FAQ)}
+          </div>
+        </div>
       </div>
     </section>
 

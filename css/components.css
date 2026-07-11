@@ -701,35 +701,44 @@ select.control { appearance: none; background-image: url("data:image/svg+xml,%3C
 .cap-item p { font-size: 0.8rem; line-height: 1.4; }
 .cap-strip .cap-item p { color: rgba(255, 255, 255, 0.9); }
 
-/* ============ FAQ accordion (visible; matches FAQPage schema) ============ */
-.faq-list { display: grid; gap: 0.75rem; }
+/* ============ FAQ accordion (premium; matches FAQPage schema) ============ */
+.faq-list { display: grid; gap: 0.85rem; }
 .faq-item {
   border: 1px solid var(--border-light);
   border-radius: var(--radius);
   background: var(--bg-white);
   overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  transition: border-color var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
 }
-.bg-dark .faq-item { border-color: var(--border-dark); background: var(--surface-card-dark); }
+.faq-item:hover { border-color: rgba(139, 61, 255, 0.35); box-shadow: var(--shadow-card); }
+.faq-item[open] { border-color: rgba(139, 61, 255, 0.35); }
+.bg-dark .faq-item { border-color: var(--border-dark); background: var(--surface-card-dark); box-shadow: none; }
+.bg-dark .faq-item:hover, .bg-dark .faq-item[open] { border-color: var(--border-dark-strong); }
 .faq-item summary {
   cursor: pointer;
   list-style: none;
-  padding: 1.05rem 1.25rem;
+  padding: 1.25rem 1.5rem;
   font-family: var(--font-display);
   font-weight: 600;
-  font-size: 1rem;
+  font-size: 1.02rem;
   color: var(--text-strong);
   display: flex; align-items: center; justify-content: space-between; gap: 1rem;
 }
 .bg-dark .faq-item summary { color: var(--text-on-dark); }
 .faq-item summary::-webkit-details-marker { display: none; }
-.faq-item summary::after {
-  content: ""; flex: none; width: 12px; height: 12px;
-  border-right: 2px solid var(--oj-purple); border-bottom: 2px solid var(--oj-purple);
-  transform: rotate(45deg); transition: transform var(--dur) var(--ease); margin-top: -4px;
+.faq-item summary:focus-visible { outline: 3px solid var(--oj-blue); outline-offset: -3px; border-radius: var(--radius); }
+/* custom +/- icon */
+.faq-ico { position: relative; flex: none; width: 26px; height: 26px; border-radius: 8px; background: rgba(139, 61, 255, 0.12); }
+.faq-ico::before, .faq-ico::after {
+  content: ""; position: absolute; left: 50%; top: 50%;
+  transform: translate(-50%, -50%); background: var(--oj-purple); border-radius: 2px;
 }
-.faq-item[open] summary::after { transform: rotate(-135deg); margin-top: 2px; }
-.faq-answer { padding: 0 1.25rem 1.2rem; }
-.faq-answer p { font-size: var(--fs-sm); color: var(--text-muted); }
+.faq-ico::before { width: 12px; height: 2px; }
+.faq-ico::after { width: 2px; height: 12px; transition: transform var(--dur) var(--ease); }
+.faq-item[open] .faq-ico::after { transform: translate(-50%, -50%) scaleY(0); }
+.faq-answer { padding: 0 1.5rem 1.3rem; }
+.faq-answer p { font-size: var(--fs-sm); color: var(--text-muted); line-height: 1.75; }
 .bg-dark .faq-answer p { color: var(--text-on-dark-soft); }
 
 /* ============ Article layout + TOC ============ */

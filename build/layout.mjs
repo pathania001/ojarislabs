@@ -89,7 +89,6 @@ export function head({ base, title, description, canonicalPath, ogType = "websit
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <script>document.documentElement.classList.add('js');</script>
   <title>${title}</title>
   <meta name="description" content="${description}" />
   <link rel="canonical" href="${canonical}" />
@@ -212,7 +211,7 @@ export const faqBlock = (faqs) => `
         <div class="faq-list">
           ${faqs
             .map(
-              (f) => `<details class="faq-item reveal"><summary>${f.q}</summary><div class="faq-answer"><p>${f.a}</p></div></details>`
+              (f) => `<details class="faq-item reveal"><summary><span class="faq-q">${f.q}</span><span class="faq-ico" aria-hidden="true"></span></summary><div class="faq-answer"><p>${f.a}</p></div></details>`
             )
             .join("\n          ")}
         </div>`;

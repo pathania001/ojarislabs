@@ -22,9 +22,10 @@
 }
 
 /* Scroll reveal — PROGRESSIVE ENHANCEMENT.
-   Content is fully visible by default. Only when JS is confirmed (the <html>
-   element gets a `js` class via an inline head script) do we hide-then-reveal.
-   If JS fails or is disabled, nothing is ever hidden. */
+   Content is fully visible by default. main.js adds the `js` class to <html>
+   ONLY after the IntersectionObserver is set up (inside try/catch), so the
+   hide-then-reveal animation can never leave content stuck invisible. If JS
+   fails, doesn't load, or is disabled, `js` is never added and nothing hides. */
 .reveal {
   opacity: 1;
   transform: none;

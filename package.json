@@ -12,6 +12,7 @@
     "lint:html": "htmlhint \"**/*.html\"",
     "check:links": "node scripts/check-links.js",
     "audit": "node scripts/audit-site.js",
+    "visual:audit": "node scripts/visual-audit.js",
     "build:site": "node build/generate.mjs",
     "build": "npm run build:site"
   },
