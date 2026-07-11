@@ -28,6 +28,23 @@
   <script type="application/ld+json">
   { "@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [ { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.ojarislabs.com/" }, { "@type": "ListItem", "position": 2, "name": "Solutions", "item": "https://www.ojarislabs.com/solutions" } ] }
   </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "name": "OjarisLabs Solutions",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "AI & Machine Learning" },
+      { "@type": "ListItem", "position": 2, "name": "Cloud Solutions" },
+      { "@type": "ListItem", "position": 3, "name": "Software Development" },
+      { "@type": "ListItem", "position": 4, "name": "Automation" },
+      { "@type": "ListItem", "position": 5, "name": "Cybersecurity" },
+      { "@type": "ListItem", "position": 6, "name": "Data & Analytics" },
+      { "@type": "ListItem", "position": 7, "name": "Digital Transformation" },
+      { "@type": "ListItem", "position": 8, "name": "IT Consulting" }
+    ]
+  }
+  </script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -74,13 +91,13 @@
               <a class="btn btn--outline-light btn--lg" href="/services">Explore Services</a>
             </div>
             <div class="hero-stats">
-              <div class="stat"><div class="num"><span data-count="250" data-suffix="+">0</span></div><div class="label">Projects Delivered</div></div>
-              <div class="stat"><div class="num"><span data-count="120" data-suffix="+">0</span></div><div class="label">Happy Clients</div></div>
-              <div class="stat"><div class="num"><span data-count="25" data-suffix="+">0</span></div><div class="label">Countries Served</div></div>
-              <div class="stat"><div class="num"><span data-count="98" data-suffix="%">0</span></div><div class="label">Client Retention</div></div>
+              <div class="stat"><div class="num"><span class="counter" data-stat="projects" data-count="250" data-suffix="+">250+</span></div><div class="label">Projects Delivered</div></div>
+              <div class="stat"><div class="num"><span class="counter" data-stat="clients" data-count="120" data-suffix="+">120+</span></div><div class="label">Happy Clients</div></div>
+              <div class="stat"><div class="num"><span class="counter" data-stat="countries" data-count="25" data-suffix="+">25+</span></div><div class="label">Countries Served</div></div>
+              <div class="stat"><div class="num"><span class="counter" data-stat="retention" data-count="98" data-suffix="%">98%</span></div><div class="label">Client Retention</div></div>
             </div>
           </div>
-          <div class="hero-visual"><img src="/assets/images/hero-orbital.svg" width="520" height="520" alt="OjarisLabs orbital energy symbol" /></div>
+          <div class="hero-visual"><img src="/assets/images/hero-orbital.svg" width="520" height="520" fetchpriority="high" decoding="async" alt="OjarisLabs orbital energy symbol" /></div>
         </div>
       </div>
     </section>
@@ -292,11 +309,12 @@
         <nav class="footer-col" aria-label="Legal"><h4>Legal</h4><ul><li><a href="/privacy-policy">Privacy Policy</a></li><li><a href="/terms">Terms of Service</a></li><li><a href="/security">Security</a></li><li><a href="/security#compliance">Compliance</a></li></ul></nav>
       </div>
       <div class="footer-bottom">
-        <p>&copy; <span data-year>2024</span> OjarisLabs. All rights reserved.</p>
+        <p>&copy; <span id="current-year">2026</span> OjarisLabs. All rights reserved.</p>
         <p>Crafted with <span class="heart" aria-hidden="true">&hearts;</span> Passion. Powered by Purpose.</p>
       </div>
     </div>
   </footer>
+  <script src="/data/site-config.js" defer></script>
   <script src="/js/main.js" defer></script>
 </body>
 </html>

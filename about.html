@@ -74,7 +74,7 @@
               <div class="hero-badge"><span class="ico"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 16l5-5 4 4 7-8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><div><h3>Results Driven</h3><p>Measured by your impact.</p></div></div>
             </div>
           </div>
-          <div class="hero-visual"><img src="/assets/images/hero-orbital.svg" width="520" height="520" alt="OjarisLabs orbital energy symbol" /></div>
+          <div class="hero-visual"><img src="/assets/images/hero-orbital.svg" width="520" height="520" fetchpriority="high" decoding="async" alt="OjarisLabs orbital energy symbol" /></div>
         </div>
       </div>
     </section>
@@ -95,12 +95,12 @@
           <div class="reveal">
             <div class="card--dark card" style="padding:clamp(1.75rem,1.2rem+2vw,2.5rem)">
               <div class="stat-grid">
-                <div class="stat-cell"><div class="num g"><span data-count="250" data-suffix="+">0</span></div><div class="label">Projects Delivered</div></div>
-                <div class="stat-cell"><div class="num g"><span data-count="120" data-suffix="+">0</span></div><div class="label">Happy Clients</div></div>
-                <div class="stat-cell"><div class="num g"><span data-count="25" data-suffix="+">0</span></div><div class="label">Countries Served</div></div>
-                <div class="stat-cell"><div class="num g"><span data-count="50" data-suffix="+">0</span></div><div class="label">Experts &amp; Developers</div></div>
-                <div class="stat-cell"><div class="num g"><span data-count="10" data-suffix="+">0</span></div><div class="label">Years of Excellence</div></div>
-                <div class="stat-cell"><div class="num g"><span data-count="98" data-suffix="%">0</span></div><div class="label">Client Retention</div></div>
+                <div class="stat-cell"><div class="num g"><span class="counter" data-stat="projects" data-count="250" data-suffix="+">250+</span></div><div class="label">Projects Delivered</div></div>
+                <div class="stat-cell"><div class="num g"><span class="counter" data-stat="clients" data-count="120" data-suffix="+">120+</span></div><div class="label">Happy Clients</div></div>
+                <div class="stat-cell"><div class="num g"><span class="counter" data-stat="countries" data-count="25" data-suffix="+">25+</span></div><div class="label">Countries Served</div></div>
+                <div class="stat-cell"><div class="num g"><span class="counter" data-stat="team" data-count="50" data-suffix="+">50+</span></div><div class="label">Experts &amp; Developers</div></div>
+                <div class="stat-cell"><div class="num g"><span class="counter" data-stat="experience" data-count="10" data-suffix="+">10+</span></div><div class="label">Years of Excellence</div></div>
+                <div class="stat-cell"><div class="num g"><span class="counter" data-stat="retention" data-count="98" data-suffix="%">98%</span></div><div class="label">Client Retention</div></div>
               </div>
             </div>
           </div>
@@ -198,11 +198,12 @@
         <nav class="footer-col" aria-label="Legal"><h4>Legal</h4><ul><li><a href="/privacy-policy">Privacy Policy</a></li><li><a href="/terms">Terms of Service</a></li><li><a href="/security">Security</a></li><li><a href="/security#compliance">Compliance</a></li></ul></nav>
       </div>
       <div class="footer-bottom">
-        <p>&copy; <span data-year>2024</span> OjarisLabs. All rights reserved.</p>
+        <p>&copy; <span id="current-year">2026</span> OjarisLabs. All rights reserved.</p>
         <p>Crafted with <span class="heart" aria-hidden="true">&hearts;</span> Passion. Powered by Purpose.</p>
       </div>
     </div>
   </footer>
+  <script src="/data/site-config.js" defer></script>
   <script src="/js/main.js" defer></script>
 </body>
 </html>

@@ -28,6 +28,16 @@
   <script type="application/ld+json">
   { "@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [ { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.ojarislabs.com/" }, { "@type": "ListItem", "position": 2, "name": "Resources", "item": "https://www.ojarislabs.com/resources" } ] }
   </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "name": "Technology Insights, Guides & Resources",
+    "description": "Expert insights, guides, case studies and resources covering AI, software development, SEO, cloud, automation and digital innovation.",
+    "url": "https://www.ojarislabs.com/resources",
+    "isPartOf": { "@type": "WebSite", "name": "OjarisLabs", "url": "https://www.ojarislabs.com/" }
+  }
+  </script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -73,16 +83,16 @@
               <input type="search" id="resource-search" placeholder="Search resources..." autocomplete="off" />
             </form>
           </div>
-          <div class="hero-visual"><img src="/assets/images/hero-orbital.svg" width="520" height="520" alt="OjarisLabs orbital energy symbol" /></div>
+          <div class="hero-visual"><img src="/assets/images/hero-orbital.svg" width="520" height="520" fetchpriority="high" decoding="async" alt="OjarisLabs orbital energy symbol" /></div>
         </div>
 
         <!-- Stats require final business verification before publishing as fact. -->
         <div class="hero-stats reveal" style="border-top:1px solid var(--border-dark);padding-top:1.5rem;margin-top:2.5rem">
-          <div class="stat"><div class="num"><span data-count="250" data-suffix="+">0</span></div><div class="label">Blog Articles</div></div>
-          <div class="stat"><div class="num"><span data-count="40" data-suffix="+">0</span></div><div class="label">Guides &amp; Ebooks</div></div>
-          <div class="stat"><div class="num"><span data-count="30" data-suffix="+">0</span></div><div class="label">Case Studies</div></div>
-          <div class="stat"><div class="num"><span data-count="25" data-suffix="+">0</span></div><div class="label">Webinars</div></div>
-          <div class="stat"><div class="num"><span data-count="20" data-suffix="+">0</span></div><div class="label">Free Tools</div></div>
+          <div class="stat"><div class="num"><span class="counter" data-stat="blogArticles" data-group="library" data-count="250" data-suffix="+">250+</span></div><div class="label">Blog Articles</div></div>
+          <div class="stat"><div class="num"><span class="counter" data-stat="guides" data-group="library" data-count="40" data-suffix="+">40+</span></div><div class="label">Guides &amp; Ebooks</div></div>
+          <div class="stat"><div class="num"><span class="counter" data-stat="caseStudies" data-group="library" data-count="30" data-suffix="+">30+</span></div><div class="label">Case Studies</div></div>
+          <div class="stat"><div class="num"><span class="counter" data-stat="webinars" data-group="library" data-count="25" data-suffix="+">25+</span></div><div class="label">Webinars</div></div>
+          <div class="stat"><div class="num"><span class="counter" data-stat="tools" data-group="library" data-count="20" data-suffix="+">20+</span></div><div class="label">Free Tools</div></div>
         </div>
       </div>
     </section>
@@ -275,11 +285,12 @@
         <nav class="footer-col" aria-label="Legal"><h4>Legal</h4><ul><li><a href="/privacy-policy">Privacy Policy</a></li><li><a href="/terms">Terms of Service</a></li><li><a href="/security">Security</a></li><li><a href="/security#compliance">Compliance</a></li></ul></nav>
       </div>
       <div class="footer-bottom">
-        <p>&copy; <span data-year>2024</span> OjarisLabs. All rights reserved.</p>
+        <p>&copy; <span id="current-year">2026</span> OjarisLabs. All rights reserved.</p>
         <p>Crafted with <span class="heart" aria-hidden="true">&hearts;</span> Passion. Powered by Purpose.</p>
       </div>
     </div>
   </footer>
+  <script src="/data/site-config.js" defer></script>
   <script src="/js/main.js" defer></script>
 </body>
 </html>

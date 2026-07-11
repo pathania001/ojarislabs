@@ -103,3 +103,14 @@
   .footer-top { grid-template-columns: 1fr; }
   .stats-strip, .stat-grid { grid-template-columns: 1fr; }
 }
+
+/* ---- Mobile performance: lighter shadows + reduced blur ---- */
+@media (max-width: 560px) {
+  :root {
+    --shadow-card: 0 6px 16px -10px rgba(11, 16, 32, 0.18);
+    --shadow-card-hover: 0 10px 24px -12px rgba(11, 16, 32, 0.24);
+    --shadow-float: 0 16px 36px -22px rgba(11, 16, 32, 0.4);
+  }
+  .site-header.is-scrolled { backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); }
+  .hero-visual img { filter: drop-shadow(0 12px 24px rgba(139, 61, 255, 0.28)); }
+}

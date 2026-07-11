@@ -46,8 +46,21 @@
     });
   }
 
-  /* ---------- Footer year ---------- */
-  $$("[data-year]").forEach((el) => (el.textContent = new Date().getFullYear()));
+  /* ---------- Footer year (dynamic, with static HTML fallback) ---------- */
+  const year = new Date().getFullYear();
+  const yearEl = document.getElementById("current-year");
+  if (yearEl) yearEl.textContent = year;
+  $$("[data-year]").forEach((el) => (el.textContent = year));
+
+  /* ---------- Resolve stat values from editable config (data/site-config.js) ---------- */
+  const cfg = window.OJARIS_SITE || null;
+  const resolveStat = (el) => {
+    if (!cfg) return null;
+    const key = el.dataset.stat;
+    if (!key) return null;
+    const group = el.dataset.group === "library" ? cfg.library : cfg.stats;
+    return group && group[key] ? group[key] : null;
+  };
 
   /* ---------- Scroll reveal + count-up + process line ---------- */
   const revealEls = $$(".reveal");
@@ -55,8 +68,9 @@
   const processEls = $$(".process");
 
   const animateCount = (el) => {
-    const target = parseFloat(el.dataset.count);
-    const suffix = el.dataset.suffix || "";
+    const conf = resolveStat(el);
+    const target = conf ? conf.value : parseFloat(el.dataset.count);
+    const suffix = conf && conf.suffix != null ? conf.suffix : el.dataset.suffix || "";
     const decimals = (String(target).split(".")[1] || "").length;
     const duration = 1400;
     const start = performance.now();
@@ -92,7 +106,10 @@
   } else {
     revealEls.forEach((el) => el.classList.add("is-visible"));
     countEls.forEach((el) => {
-      el.textContent = parseFloat(el.dataset.count).toString() + (el.dataset.suffix || "");
+      const conf = resolveStat(el);
+      const target = conf ? conf.value : parseFloat(el.dataset.count);
+      const suffix = conf && conf.suffix != null ? conf.suffix : el.dataset.suffix || "";
+      el.textContent = String(target) + suffix;
     });
     processEls.forEach((el) => {
       const line = $(".line-progress", el);
