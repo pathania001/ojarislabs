@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" role="img" aria-label="OjarisLabs orbital energy symbol" fill="none">
+  <defs>
+    <linearGradient id="heroRing" x1="140" y1="440" x2="460" y2="150" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FF8A00"/>
+      <stop offset="0.35" stop-color="#F72585"/>
+      <stop offset="0.68" stop-color="#8B3DFF"/>
+      <stop offset="1" stop-color="#168BFF"/>
+    </linearGradient>
+    <linearGradient id="heroVector" x1="200" y1="400" x2="430" y2="150" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FF8A00"/>
+      <stop offset="0.5" stop-color="#F72585"/>
+      <stop offset="1" stop-color="#8B3DFF"/>
+    </linearGradient>
+    <radialGradient id="heroGlow" cx="0.5" cy="0.46" r="0.5">
+      <stop offset="0" stop-color="#8B3DFF" stop-opacity="0.55"/>
+      <stop offset="0.45" stop-color="#168BFF" stop-opacity="0.22"/>
+      <stop offset="1" stop-color="#030817" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="platGlow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#00C9D8" stop-opacity="0.9"/>
+      <stop offset="1" stop-color="#00C9D8" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="softGlow" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="7" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <!-- ambient glow -->
+  <circle cx="300" cy="285" r="255" fill="url(#heroGlow)"/>
+
+  <!-- luminous platform rings -->
+  <g opacity="0.85">
+    <ellipse cx="300" cy="470" rx="205" ry="46" stroke="#168BFF" stroke-opacity="0.35" stroke-width="1.5"/>
+    <ellipse cx="300" cy="470" rx="150" ry="33" stroke="#8B3DFF" stroke-opacity="0.4" stroke-width="1.5"/>
+    <ellipse cx="300" cy="470" rx="250" ry="60" stroke="#00C9D8" stroke-opacity="0.18" stroke-width="1"/>
+  </g>
+  <ellipse cx="300" cy="478" rx="120" ry="20" fill="url(#platGlow)" opacity="0.6"/>
+
+  <!-- subtle orbit guide -->
+  <circle cx="300" cy="270" r="185" stroke="#FFFFFF" stroke-opacity="0.06" stroke-width="1"/>
+
+  <!-- main orbital ring, open near top-right -->
+  <path d="M405 132 A150 150 0 1 0 450 270" stroke="url(#heroRing)" stroke-width="26" stroke-linecap="round" filter="url(#softGlow)"/>
+
+  <!-- energy vector -->
+  <path d="M196 372 452 118" stroke="url(#heroVector)" stroke-width="26" stroke-linecap="round" filter="url(#softGlow)"/>
+
+  <!-- comet head -->
+  <circle cx="470" cy="100" r="17" fill="#FF8A00" filter="url(#softGlow)"/>
+  <circle cx="470" cy="100" r="7" fill="#FFD9A8"/>
+
+  <!-- sparkle particles -->
+  <g fill="#FFFFFF">
+    <circle cx="150" cy="150" r="2.2" opacity="0.7"/>
+    <circle cx="470" cy="330" r="2.6" opacity="0.6"/>
+    <circle cx="120" cy="320" r="1.8" opacity="0.5"/>
+    <circle cx="410" cy="410" r="2" opacity="0.5"/>
+    <circle cx="360" cy="90" r="1.6" opacity="0.6"/>
+  </g>
+</svg>

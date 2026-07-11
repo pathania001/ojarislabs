@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 210 48" role="img" aria-label="OjarisLabs" fill="none">
+  <defs>
+    <linearGradient id="ojLogoMark" x1="6" y1="42" x2="42" y2="6" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FF8A00"/>
+      <stop offset="0.35" stop-color="#F72585"/>
+      <stop offset="0.68" stop-color="#8B3DFF"/>
+      <stop offset="1" stop-color="#168BFF"/>
+    </linearGradient>
+    <linearGradient id="ojLogoText" x1="52" y1="24" x2="205" y2="24" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FF8A00"/>
+      <stop offset="0.5" stop-color="#F72585"/>
+      <stop offset="1" stop-color="#8B3DFF"/>
+    </linearGradient>
+  </defs>
+  <path d="M33.5 9.8A17 17 0 1 0 41 24" stroke="url(#ojLogoMark)" stroke-width="5.2" stroke-linecap="round"/>
+  <path d="M13.5 34.5 38 10" stroke="url(#ojLogoMark)" stroke-width="5.2" stroke-linecap="round"/>
+  <circle cx="40.4" cy="8" r="3.3" fill="#FF8A00"/>
+  <text x="52" y="32" font-family="Poppins, Arial, sans-serif" font-size="24" font-weight="700" fill="#0B1020">Ojaris<tspan fill="url(#ojLogoText)">Labs</tspan></text>
+</svg>
