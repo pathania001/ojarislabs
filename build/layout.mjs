@@ -77,9 +77,10 @@ export const NAV = [
 /* base = relative prefix to site root, e.g. "./" (root pages) or "../" (nested) */
 export const link = (base, file) => (file === "" ? base : base + file);
 
-export function head({ base, title, description, canonicalPath, ogType = "website", extraJsonLd = [] }) {
+export function head({ base, title, description, canonicalPath, ogType = "website", extraJsonLd = [], preloadImage = "assets/images/hero-orbital.svg" }) {
   const canonical = canonicalPath === "" ? SITE_URL + "/" : SITE_URL + "/" + canonicalPath;
   const ogImage = SITE_URL + "/assets/brand/og-default.jpg";
+  const preload = preloadImage ? `\n  <link rel="preload" as="image" href="${base}${preloadImage}" />` : "";
   const ld = extraJsonLd
     .map((o) => `  <script type="application/ld+json">\n${JSON.stringify(o, null, 2)}\n  </script>`)
     .join("\n");
@@ -88,6 +89,7 @@ export function head({ base, title, description, canonicalPath, ogType = "websit
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script>document.documentElement.classList.add('js');</script>
   <title>${title}</title>
   <meta name="description" content="${description}" />
   <link rel="canonical" href="${canonical}" />
@@ -104,8 +106,7 @@ export function head({ base, title, description, canonicalPath, ogType = "websit
   <link rel="icon" href="${base}assets/brand/favicon.svg" type="image/svg+xml" />
   <link rel="apple-touch-icon" href="${base}assets/brand/apple-touch-icon.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="preload" as="image" href="${base}assets/images/hero-orbital.svg" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />${preload}
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="${base}css/variables.css" />
   <link rel="stylesheet" href="${base}css/base.css" />
@@ -183,8 +184,8 @@ export function footer(base) {
 export const arrowLink = (base, file, label) =>
   `<a class="link-arrow" href="${link(base, file)}">${label} ${icon("arrow")}</a>`;
 
-export const heroVisual = (base, priority = true) =>
-  `<div class="hero-visual"><img src="${base}assets/images/hero-orbital.svg" width="520" height="520"${priority ? ' fetchpriority="high"' : ' loading="lazy"'} decoding="async" alt="OjarisLabs orbital energy symbol" /></div>`;
+export const heroVisual = (base, src = "hero-orbital.svg", alt = "OjarisLabs abstract brand visual") =>
+  `<div class="hero-visual"><img src="${base}assets/images/${src}" width="520" height="520" fetchpriority="high" decoding="async" alt="${alt}" /></div>`;
 
 export const ctaBanner = (base, title, text, btn = "Start a Project", href = "contact.html") => `
     <section class="section bg-white" style="padding-top:0">

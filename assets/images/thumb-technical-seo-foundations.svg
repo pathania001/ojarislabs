@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 225" role="img" aria-label="Technical SEO" fill="none">
+  <defs><linearGradient id="t5" x1="0" y1="0" x2="400" y2="225" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#00C9D8"/><stop offset=".5" stop-color="#168BFF"/><stop offset="1" stop-color="#8B3DFF"/></linearGradient></defs>
+  <rect width="400" height="225" fill="#050B1A"/>
+  <!-- crawl graph -->
+  <g stroke="url(#t5)" stroke-width="2" opacity="0.7">
+    <line x1="120" y1="60" x2="70" y2="120"/><line x1="120" y1="60" x2="150" y2="120"/>
+    <line x1="70" y1="120" x2="60" y2="175"/><line x1="70" y1="120" x2="110" y2="175"/>
+    <line x1="150" y1="120" x2="150" y2="175"/>
+  </g>
+  <g fill="#168BFF"><circle cx="120" cy="60" r="9"/><circle cx="70" cy="120" r="7"/><circle cx="150" cy="120" r="7"/><circle cx="60" cy="175" r="6"/><circle cx="110" cy="175" r="6"/><circle cx="150" cy="175" r="6"/></g>
+  <!-- search magnifier -->
+  <circle cx="280" cy="100" r="46" stroke="url(#t5)" stroke-width="6" fill="none"/>
+  <path d="M314 134 l26 26" stroke="url(#t5)" stroke-width="8" stroke-linecap="round"/>
+  <path d="M262 100 h36 M262 114 h24" stroke="#FFFFFF" stroke-opacity="0.55" stroke-width="3" stroke-linecap="round"/>
+</svg>

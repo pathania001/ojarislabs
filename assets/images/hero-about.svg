@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" role="img" aria-label="Experience converging into one brand" fill="none">
+  <defs>
+    <linearGradient id="abG" x1="120" y1="480" x2="480" y2="120" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FF8A00"/><stop offset=".35" stop-color="#F72585"/><stop offset=".68" stop-color="#8B3DFF"/><stop offset="1" stop-color="#168BFF"/>
+    </linearGradient>
+    <radialGradient id="abGlow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#F72585" stop-opacity="0.4"/><stop offset="0.55" stop-color="#8B3DFF" stop-opacity="0.16"/><stop offset="1" stop-color="#030817" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="abCore" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#FFE0BD"/><stop offset="0.4" stop-color="#FF8A00"/><stop offset="1" stop-color="#8B3DFF"/>
+    </radialGradient>
+    <filter id="abBlur" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="7"/></filter>
+  </defs>
+  <circle cx="300" cy="300" r="255" fill="url(#abGlow)"/>
+  <!-- converging energy paths -->
+  <g stroke="url(#abG)" stroke-width="3" stroke-linecap="round" fill="none" opacity="0.7">
+    <path d="M110 110 C 220 200, 240 260, 290 292"/>
+    <path d="M490 110 C 380 200, 360 260, 312 292"/>
+    <path d="M110 490 C 220 400, 240 340, 290 308"/>
+    <path d="M490 490 C 380 400, 360 340, 312 308"/>
+    <path d="M300 70 C 300 180, 300 220, 300 246"/>
+    <path d="M300 530 C 300 420, 300 380, 300 354"/>
+  </g>
+  <!-- endpoint sparks -->
+  <g>
+    <circle cx="110" cy="110" r="12" fill="#FF8A00"/><circle cx="490" cy="110" r="12" fill="#F72585"/>
+    <circle cx="110" cy="490" r="12" fill="#168BFF"/><circle cx="490" cy="490" r="12" fill="#00C9D8"/>
+    <circle cx="300" cy="70" r="10" fill="#8B3DFF"/><circle cx="300" cy="530" r="10" fill="#FF8A00"/>
+  </g>
+  <!-- brand core -->
+  <circle cx="300" cy="300" r="78" fill="url(#abCore)" filter="url(#abBlur)" opacity="0.55"/>
+  <path d="M330 262 A 40 40 0 1 0 348 300" stroke="#FFFFFF" stroke-width="7" stroke-linecap="round" fill="none"/>
+  <path d="M276 328 44 -44" stroke="#FFFFFF" stroke-width="7" stroke-linecap="round"/>
+  <circle cx="322" cy="262" r="6" fill="#FFFFFF"/>
+  <circle cx="300" cy="300" r="56" stroke="#FFFFFF" stroke-opacity="0.35" stroke-width="1.5" fill="none"/>
+</svg>

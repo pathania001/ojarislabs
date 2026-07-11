@@ -6,7 +6,7 @@ import { SERVICE_PAGES } from "./data.mjs";
 import { ARTICLES } from "./articles.mjs";
 
 const wrap = (base, activeKey, title, description, canonicalPath, jsonLd, main) =>
-  head({ base, title, description, canonicalPath, extraJsonLd: jsonLd }) + header(base, activeKey) + main + footer(base);
+  head({ base, title, description, canonicalPath, extraJsonLd: jsonLd, preloadImage: null }) + header(base, activeKey) + main + footer(base);
 
 function legal({ slug, title, description, eyebrow, h1, lead, bodyHtml }) {
   const base = "./";

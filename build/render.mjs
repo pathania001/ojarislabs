@@ -13,9 +13,11 @@ import { ARTICLES } from "./articles.mjs";
 
 const ICO_COLORS = ["ico-orange", "ico-pink", "ico-purple", "ico-blue", "ico-cyan"];
 const cyc = (i) => ICO_COLORS[i % ICO_COLORS.length];
+// Fixed accent per service group (brand-consistent, distinct per card)
+const ACCENT = { web: "ico-orange", software: "ico-purple", ecommerce: "ico-pink", ai: "ico-blue", mobile: "ico-cyan", design: "ico-pink", seo: "ico-cyan", cloud: "ico-blue" };
 
-const page = ({ base, activeKey, title, description, canonicalPath, jsonLd = [], main, ogType = "website" }) =>
-  head({ base, title, description, canonicalPath, ogType, extraJsonLd: jsonLd }) + header(base, activeKey) + main + footer(base);
+const page = ({ base, activeKey, title, description, canonicalPath, jsonLd = [], main, ogType = "website", preloadImage }) =>
+  head({ base, title, description, canonicalPath, ogType, extraJsonLd: jsonLd, preloadImage }) + header(base, activeKey) + main + footer(base);
 
 const eyebrow = (t, center) => `<p class="eyebrow${center ? " eyebrow--center" : ""}">${t}</p>`;
 const capStrip = () => `
@@ -46,7 +48,7 @@ export function renderHome() {
   ];
   const serviceCards = SERVICE_GROUPS.map(
     (g, i) => `<article class="card reveal" style="--i:${i % 3}">
-            <span class="card-icon ${cyc(i)}">${icon(g.icon)}</span>
+            <span class="card-icon ${ACCENT[g.key]}">${icon(g.icon)}</span>
             <h3>${g.title}</h3>
             <p>${g.desc}</p>
             <div class="card-foot">${arrowLink(base, g.slug, "Explore")}</div>
@@ -164,7 +166,7 @@ export function renderServices() {
   const base = "./";
   const groups = SERVICE_GROUPS.map(
     (g, i) => `<article class="card reveal" style="--i:${i % 2}">
-            <span class="card-icon ${cyc(i)}">${icon(g.icon)}</span>
+            <span class="card-icon ${ACCENT[g.key]}">${icon(g.icon)}</span>
             <h3>${g.title}</h3>
             <p>${g.desc}</p>
             <ul class="card-list">${g.capabilities.slice(0, 4).map((c) => `<li>${icon("check")}${c}</li>`).join("")}</ul>
@@ -192,7 +194,7 @@ export function renderServices() {
               <a class="btn btn--outline-light btn--lg" href="${base}solutions.html">View Solutions</a>
             </div>
           </div>
-          ${heroVisual(base)}
+          ${heroVisual(base, "hero-services.svg", "Connected services ecosystem")}
         </div>
       </div>
     </section>
@@ -236,7 +238,7 @@ export function renderServices() {
     { "@context": "https://schema.org", "@type": "ItemList", name: "OjarisLabs Services", itemListElement: SERVICE_GROUPS.map((g, i) => ({ "@type": "ListItem", position: i + 1, name: g.title, url: SITE_URL + "/" + g.slug })) },
     faqJsonLd(SERVICES_FAQ)
   ];
-  return page({ base, activeKey: "services", title: "Technology & Digital Services | OjarisLabs", description: "Explore OjarisLabs services across web development, custom software, AI automation, eCommerce, mobile apps, UI/UX design, SEO and cloud.", canonicalPath: "services.html", jsonLd, main });
+  return page({ base, activeKey: "services", title: "Technology & Digital Services | OjarisLabs", description: "Explore OjarisLabs services across web development, custom software, AI automation, eCommerce, mobile apps, UI/UX design, SEO and cloud.", canonicalPath: "services.html", jsonLd, main, preloadImage: "assets/images/hero-services.svg" });
 }
 
 /* ============================ SOLUTIONS ============================ */
@@ -266,7 +268,7 @@ export function renderSolutions() {
               <a class="btn btn--outline-light btn--lg" href="${base}services.html">Explore Services</a>
             </div>
           </div>
-          ${heroVisual(base)}
+          ${heroVisual(base, "hero-solutions.svg", "Transformation from challenge to outcome")}
         </div>
       </div>
     </section>
@@ -304,7 +306,7 @@ export function renderSolutions() {
     breadcrumbJsonLd([{ label: "Home", file: "" }, { label: "Solutions", file: "solutions.html" }]),
     { "@context": "https://schema.org", "@type": "ItemList", name: "OjarisLabs Solutions", itemListElement: SOLUTION_CATEGORIES.map((c, i) => ({ "@type": "ListItem", position: i + 1, name: c.title })) }
   ];
-  return page({ base, activeKey: "solutions", title: "Digital Business Solutions | OjarisLabs", description: "Discover how OjarisLabs helps solve real business challenges — launching digital products, automating operations, modernizing systems, building eCommerce and growing visibility.", canonicalPath: "solutions.html", jsonLd, main });
+  return page({ base, activeKey: "solutions", title: "Digital Business Solutions | OjarisLabs", description: "Discover how OjarisLabs helps solve real business challenges — launching digital products, automating operations, modernizing systems, building eCommerce and growing visibility.", canonicalPath: "solutions.html", jsonLd, main, preloadImage: "assets/images/hero-solutions.svg" });
 }
 
 /* ============================ ABOUT ============================ */
@@ -343,7 +345,7 @@ export function renderAbout() {
             <h1 class="hero-title">A New Technology Brand.<br /><span class="gradient-text">Built on Real Experience.</span></h1>
             <p class="lead">OjarisLabs was created to bring software engineering, digital experience, AI and growth expertise together under one focused technology brand.</p>
           </div>
-          ${heroVisual(base)}
+          ${heroVisual(base, "hero-about.svg", "Experience converging into one brand")}
         </div>
       </div>
     </section>
@@ -355,7 +357,7 @@ export function renderAbout() {
             ${eyebrow("Our Story")}
             <h2>Why OjarisLabs <span class="gradient-text">Exists</span></h2>
             <p style="margin:1.2rem 0">We may be a new name, but the thinking behind OjarisLabs is shaped by years of hands-on work across websites, eCommerce, software platforms, integrations, infrastructure and digital growth.</p>
-            <p>Our goal is simple: make technology more useful, more scalable and more connected to real business outcomes — without the fake scale or empty buzzwords the industry is known for.</p>
+            <p>Our goal is simple: make technology more useful, more scalable and more connected to real business outcomes — with clear thinking, thoughtful execution and long-term value.</p>
             <div style="margin-top:1.75rem"><a class="btn btn--primary" href="${base}contact.html">Work with us ${icon("arrow", "arrow")}</a></div>
           </div>
           <div class="reveal">
@@ -401,7 +403,7 @@ export function renderAbout() {
     ${ctaBanner(base, "Let's Build Something Together", "Tell us about your project — we'd love to help.")}
   </main>`;
   const jsonLd = [breadcrumbJsonLd([{ label: "Home", file: "" }, { label: "About", file: "about.html" }])];
-  return page({ base, activeKey: "about", title: "About OjarisLabs | A New Digital Engineering Brand", description: "OjarisLabs is a new technology brand built on real, hands-on experience across web, software, eCommerce, AI, growth and infrastructure.", canonicalPath: "about.html", jsonLd, main });
+  return page({ base, activeKey: "about", title: "About OjarisLabs | A New Digital Engineering Brand", description: "OjarisLabs is a new technology brand built on real, hands-on experience across web, software, eCommerce, AI, growth and infrastructure.", canonicalPath: "about.html", jsonLd, main, preloadImage: "assets/images/hero-about.svg" });
 }
 
 /* ============================ RESOURCES ============================ */
@@ -417,7 +419,7 @@ export function renderResources() {
   const cards = ARTICLES.map((a, i) => {
     const cat = a.category.toLowerCase();
     return `<article class="card resource-card reveal" data-resource data-category="${cat}" data-search="${(a.title + " " + a.excerpt).toLowerCase().replace(/"/g, "")}">
-            <a class="resource-media ${grads[i % grads.length]}" href="${base}resources/${a.slug}.html" aria-label="${a.title}">${icon("doc")}</a>
+            <a class="resource-media" href="${base}resources/${a.slug}.html" aria-label="${a.title}"><img src="${base}assets/images/thumb-${a.slug}.svg" width="400" height="225" loading="lazy" decoding="async" alt="" /></a>
             <div class="resource-body">
               <span class="resource-cat">${a.category}</span>
               <h3><a href="${base}resources/${a.slug}.html">${a.title}</a></h3>
@@ -442,7 +444,7 @@ export function renderResources() {
               <input type="search" id="resource-search" placeholder="Search resources..." autocomplete="off" />
             </form>
           </div>
-          ${heroVisual(base)}
+          ${heroVisual(base, "hero-resources.svg", "Digital knowledge library")}
         </div>
         <div class="card-grid cols-4 reveal" style="margin-top:2.5rem">
           ${cats.map((c, i) => `<div class="cap-item" style="border:1px solid var(--border-dark);border-radius:var(--radius);padding:1.15rem"><span class="cap-ico">${icon(c.icon)}</span><div><h3 style="color:var(--text-on-dark)">${c.t}</h3><p style="color:var(--text-on-dark-muted);font-size:var(--fs-sm)">${c.d}</p></div></div>`).join("\n          ")}
@@ -494,7 +496,7 @@ export function renderResources() {
     breadcrumbJsonLd([{ label: "Home", file: "" }, { label: "Resources", file: "resources.html" }]),
     { "@context": "https://schema.org", "@type": "CollectionPage", name: "OjarisLabs Resources", url: SITE_URL + "/resources.html", description: "Practical guides and engineering perspectives from OjarisLabs.", isPartOf: { "@type": "WebSite", name: "OjarisLabs", url: SITE_URL + "/" } }
   ];
-  return page({ base, activeKey: "resources", title: "Insights, Guides & Engineering Resources | OjarisLabs", description: "Practical guides and engineering perspectives on web development, software, AI automation, eCommerce, SEO and digital growth from OjarisLabs.", canonicalPath: "resources.html", jsonLd, main });
+  return page({ base, activeKey: "resources", title: "Insights, Guides & Engineering Resources | OjarisLabs", description: "Practical guides and engineering perspectives on web development, software, AI automation, eCommerce, SEO and digital growth from OjarisLabs.", canonicalPath: "resources.html", jsonLd, main, preloadImage: "assets/images/hero-resources.svg" });
 }
 
 /* ============================ CAREERS ============================ */
@@ -502,8 +504,18 @@ export function renderCareers() {
   const base = "./";
   const perks = [
     { icon: "spark", t: "Meaningful Work", d: "Ship work that creates real impact for ambitious businesses." },
-    { icon: "refresh", t: "Grow Continuously", d: "Learn across modern stacks and disciplines." },
-    { icon: "globe", t: "Remote-First", d: "Collaborate flexibly across locations and time zones." }
+    { icon: "refresh", t: "Continuous Learning", d: "Grow across modern stacks, tools and disciplines." },
+    { icon: "globe", t: "Flexible Collaboration", d: "Remote-first, across locations and time zones." },
+    { icon: "shield", t: "Ownership", d: "Own outcomes and see your work through end to end." },
+    { icon: "code", t: "Modern Technology", d: "Work with current, well-chosen tools and practices." },
+    { icon: "eye", t: "Quality Over Noise", d: "We value thoughtful craft over busywork." }
+  ];
+  const howWeWork = [
+    { icon: "chat", t: "Clear communication", d: "Honest, jargon-free and frequent." },
+    { icon: "compass", t: "Thoughtful execution", d: "Understand the problem before building." },
+    { icon: "refresh", t: "Continuous improvement", d: "Measure, learn and refine." },
+    { icon: "brush", t: "Respect for craft", d: "Details and quality matter." },
+    { icon: "globe", t: "Remote collaboration", d: "Async-friendly and outcome-focused." }
   ];
   const main = `
   <main id="main">
@@ -517,21 +529,37 @@ export function renderCareers() {
             <p class="lead">OjarisLabs is growing a network of developers, designers, strategists and digital specialists who care about thoughtful work and continuous improvement.</p>
             <div class="hero-actions"><a class="btn btn--primary btn--lg" href="${base}contact.html">Introduce Yourself ${icon("arrow", "arrow")}</a></div>
           </div>
-          ${heroVisual(base)}
+          ${heroVisual(base, "hero-careers.svg", "Collaboration and creative energy")}
         </div>
       </div>
     </section>
 
     <section class="section bg-white">
       <div class="container">
-        <div class="section-head section-head--center">${eyebrow("Why Work With Us", true)}<h2>A Culture That <span class="gradient-text">Elevates You</span></h2></div>
+        <div class="section-head section-head--center">${eyebrow("Why Work With OjarisLabs", true)}<h2>A Culture That <span class="gradient-text">Elevates You</span></h2></div>
         <div class="card-grid cols-3">
-          ${perks.map((p, i) => `<div class="card reveal" style="--i:${i}"><span class="card-icon ${cyc(i)}">${icon(p.icon)}</span><h3>${p.t}</h3><p>${p.d}</p></div>`).join("\n          ")}
+          ${perks.map((p, i) => `<div class="card reveal" style="--i:${i % 3}"><span class="card-icon ${cyc(i)}">${icon(p.icon)}</span><h3>${p.t}</h3><p>${p.d}</p></div>`).join("\n          ")}
         </div>
-        <div class="reveal" style="text-align:center;margin-top:3rem">
-          <div class="card" style="max-width:640px;margin-inline:auto">
+      </div>
+    </section>
+
+    <section class="section bg-dark">
+      <div class="container">
+        <div class="section-head section-head--center">${eyebrow("How We Work", true)}<h2>Principles Over <span class="gradient-text">Process</span></h2></div>
+        <div class="card-grid cols-5">
+          ${howWeWork.map((p, i) => `<div class="feature-brand reveal" style="--i:${i}"><span class="ico ${cyc(i)}">${icon(p.icon)}</span><h3 style="text-transform:none;letter-spacing:0">${p.t}</h3><p>${p.d}</p></div>`).join("\n          ")}
+        </div>
+      </div>
+    </section>
+
+    <section class="section bg-white">
+      <div class="container">
+        <div class="section-head section-head--center">${eyebrow("Current Opportunities", true)}<h2>Open <span class="gradient-text">Roles</span></h2></div>
+        <div class="reveal" style="text-align:center">
+          <div class="card" style="max-width:680px;margin-inline:auto">
+            <span class="card-icon ico-purple" style="margin-inline:auto">${icon("compass")}</span>
             <h3>No open roles right now</h3>
-            <p style="margin:.75rem 0 1.25rem">We're always interested in exceptional people. Send your details and we'll reach out when a matching role opens up.</p>
+            <p style="margin:.75rem 0 1.25rem">We're always interested in hearing from thoughtful developers, designers and digital specialists. If our approach resonates with you, introduce yourself and we'll keep your details in mind for future opportunities.</p>
             <a class="btn btn--primary" href="${base}contact.html">Introduce Yourself ${icon("arrow", "arrow")}</a>
           </div>
         </div>
@@ -541,7 +569,7 @@ export function renderCareers() {
     ${ctaBanner(base, "Like How We Think?", "Introduce yourself — we'd love to hear from you.", "Get in Touch")}
   </main>`;
   const jsonLd = [breadcrumbJsonLd([{ label: "Home", file: "" }, { label: "Careers", file: "careers.html" }])];
-  return page({ base, activeKey: "careers", title: "Careers at OjarisLabs | Build What Comes Next", description: "Join a growing network of developers, designers and digital specialists at OjarisLabs. Remote-first, focused on thoughtful work.", canonicalPath: "careers.html", jsonLd, main });
+  return page({ base, activeKey: "careers", title: "Careers at OjarisLabs | Build What Comes Next", description: "Join a growing network of developers, designers and digital specialists at OjarisLabs. Remote-first, focused on thoughtful work.", canonicalPath: "careers.html", jsonLd, main, preloadImage: "assets/images/hero-careers.svg" });
 }
 
 /* ============================ CONTACT ============================ */
@@ -568,7 +596,7 @@ export function renderContact() {
               ${benefits.map((b) => `<div class="hero-badge"><span class="ico">${icon(b.icon)}</span><div><h3>${b.t}</h3><p>${b.d}</p></div></div>`).join("\n              ")}
             </div>
           </div>
-          ${heroVisual(base)}
+          ${heroVisual(base, "hero-contact.svg", "Connected communication signals")}
         </div>
       </div>
     </section>
@@ -613,7 +641,7 @@ export function renderContact() {
     ${ctaBanner(base, "Ready to Start Your Next Project?", "Let's create something people love to use.", "Start a Project", "#contact-form")}
   </main>`;
   const jsonLd = [breadcrumbJsonLd([{ label: "Home", file: "" }, { label: "Contact", file: "contact.html" }])];
-  return page({ base, activeKey: "contact", title: "Contact OjarisLabs | Start a Project", description: "Talk to OjarisLabs about your next web, software, eCommerce, mobile, AI, automation, cloud or SEO project. Remote-first, worldwide.", canonicalPath: "contact.html", jsonLd, main });
+  return page({ base, activeKey: "contact", title: "Contact OjarisLabs | Start a Project", description: "Talk to OjarisLabs about your next web, software, eCommerce, mobile, AI, automation, cloud or SEO project. Remote-first, worldwide.", canonicalPath: "contact.html", jsonLd, main, preloadImage: "assets/images/hero-contact.svg" });
 }
 
 /* ============================ SERVICE LANDING PAGE ============================ */
@@ -636,7 +664,7 @@ export function renderServicePage(s) {
               <a class="btn btn--outline-light btn--lg" href="${base}services.html">All Services</a>
             </div>
           </div>
-          ${heroVisual(base)}
+          ${heroVisual(base, "hero-services.svg", "OjarisLabs services visual")}
         </div>
       </div>
     </section>
@@ -715,7 +743,7 @@ export function renderServicePage(s) {
       <div class="container">
         <div class="section-head section-head--center">${eyebrow("Related Services", true)}<h2>Explore <span class="gradient-text">related work</span></h2></div>
         <div class="card-grid cols-4">
-          ${related.map((r, i) => `<a class="card reveal" style="--i:${i}" href="${base}${r.slug}.html"><span class="card-icon ${cyc(i)}">${icon(r.icon)}</span><h3>${r.eyebrow}</h3><p>${r.intro.split(".")[0]}.</p><div class="card-foot"><span class="link-arrow">Learn more ${icon("arrow")}</span></div></a>`).join("\n          ")}
+          ${related.map((r, i) => `<a class="card reveal" style="--i:${i}" href="${base}${r.slug}.html"><span class="card-icon ${ACCENT[r.group] || cyc(i)}">${icon(r.icon)}</span><h3>${r.eyebrow}</h3><p>${r.intro.split(".")[0]}.</p><div class="card-foot"><span class="link-arrow">Learn more ${icon("arrow")}</span></div></a>`).join("\n          ")}
         </div>
       </div>
     </section>
@@ -727,7 +755,7 @@ export function renderServicePage(s) {
     { "@context": "https://schema.org", "@type": "Service", name: s.eyebrow, serviceType: s.eyebrow, description: s.metaDescription, provider: { "@type": "Organization", name: "OjarisLabs", url: SITE_URL + "/" }, areaServed: "Worldwide", url: SITE_URL + "/" + s.slug + ".html" },
     faqJsonLd(s.faqs)
   ];
-  return page({ base, activeKey: "services", title: s.title, description: s.metaDescription, canonicalPath: s.slug + ".html", jsonLd, main });
+  return page({ base, activeKey: "services", title: s.title, description: s.metaDescription, canonicalPath: s.slug + ".html", jsonLd, main, preloadImage: "assets/images/hero-services.svg" });
 }
 
 /* ============================ ARTICLE ============================ */
@@ -794,5 +822,5 @@ export function renderArticle(a) {
       image: SITE_URL + "/assets/brand/og-default.jpg"
     }
   ];
-  return page({ base, activeKey: "resources", title: a.title + " | OjarisLabs", description: a.metaDescription, canonicalPath: "resources/" + a.slug + ".html", jsonLd, main, ogType: "article" });
+  return page({ base, activeKey: "resources", title: a.title + " | OjarisLabs", description: a.metaDescription, canonicalPath: "resources/" + a.slug + ".html", jsonLd, main, ogType: "article", preloadImage: null });
 }
