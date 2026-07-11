@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" role="img" aria-label="OjarisLabs">
+  <defs>
+    <linearGradient id="ojFav" x1="6" y1="42" x2="42" y2="6" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FF8A00"/><stop offset=".35" stop-color="#F72585"/><stop offset=".68" stop-color="#8B3DFF"/><stop offset="1" stop-color="#168BFF"/>
+    </linearGradient>
+  </defs>
+  <rect width="48" height="48" rx="11" fill="#030817"/>
+  <path d="M32 12.5A13 13 0 1 0 37 24" stroke="url(#ojFav)" stroke-width="4.2" stroke-linecap="round" fill="none"/>
+  <path d="M15.5 32.5 35 13" stroke="url(#ojFav)" stroke-width="4.2" stroke-linecap="round" fill="none"/>
+  <circle cx="36.6" cy="11.4" r="2.7" fill="#FF8A00"/>
+</svg>

@@ -59,6 +59,9 @@
   .process::before, .process .line-progress { display: none; }
   .slider-track { grid-template-columns: 1fr; }
   .stat-grid { grid-template-columns: repeat(3, 1fr); }
+  .cap-strip { grid-template-columns: repeat(2, 1fr); }
+  .article-layout { grid-template-columns: 1fr; }
+  .toc { position: static; }
 }
 
 /* ---- Small tablet ---- */
@@ -92,6 +95,7 @@
   .stat-grid { grid-template-columns: repeat(2, 1fr); }
   .hero-stats { gap: 1.25rem 2rem; }
   .stats-strip { grid-template-columns: repeat(2, 1fr); }
+  .cap-strip { grid-template-columns: 1fr; }
 
   .contact-info { gap: 0.75rem; }
   .newsletter-form { flex-direction: column; }
