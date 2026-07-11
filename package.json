@@ -10,6 +10,7 @@
     "lint": "npm run lint:css && npm run lint:html",
     "lint:css": "stylelint \"css/**/*.css\"",
     "lint:html": "htmlhint \"**/*.html\"",
+    "check:links": "node scripts/check-links.js",
     "build": "node -e \"console.log('Static site — no build step required. Deploy the repository root as-is.')\""
   },
   "devDependencies": {
