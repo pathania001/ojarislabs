@@ -31,9 +31,11 @@
   .primary-nav a { display: block; padding: 0.9rem 0.25rem; font-size: 1.05rem; color: #fff; border-bottom: 1px solid var(--border-dark); }
   .primary-nav a::after { display: none; }
 
+  /* Below the header (z 100) so the off-canvas menu — which lives inside the
+     header's stacking context — paints above the backdrop, not behind it. */
   .nav-backdrop {
     position: fixed; inset: 0; background: rgba(3, 8, 23, 0.6);
-    opacity: 0; visibility: hidden; transition: opacity var(--dur) var(--ease); z-index: var(--z-menu); backdrop-filter: blur(2px);
+    opacity: 0; visibility: hidden; transition: opacity var(--dur) var(--ease); z-index: 90; backdrop-filter: blur(2px);
   }
   body.menu-open .nav-backdrop { opacity: 1; visibility: visible; }
 
