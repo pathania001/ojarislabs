@@ -22,8 +22,27 @@ robots.txt, sitemap.xml, 404.html
 ## Getting started
 
 ```bash
-npm install      # install dev tooling (serve + linters)
-npm run dev      # start local dev server at http://localhost:3000
+npm install      # install tooling + nodemailer
+npm run build    # generate static HTML into repo root + dist/
+npm run dev      # static-only preview at http://localhost:3000
+npm start        # production Node server (static + POST /api/contact)
+```
+
+### Contact form email (Hostinger)
+
+`npm start` runs `node server/index.mjs`, which serves `dist/` and handles `POST /api/contact`.
+
+Configure these environment variables in Hostinger (see `.env.example`):
+
+- `SMTP_HOST`, `SMTP_PORT`, `SMTP_SECURE`, `SMTP_USER`, `SMTP_PASS`
+- `CONTACT_TO_EMAIL=hello@ojarislabs.com`
+- `CONTACT_FROM_EMAIL=` (authenticated mailbox allowed by your SMTP provider)
+
+Never put SMTP passwords in frontend JS. For local API testing without SMTP:
+
+```bash
+npm run build && CONTACT_DRY_RUN=true npm run dev:server
+npm run test:contact
 ```
 
 ## Scripts

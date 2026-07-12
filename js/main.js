@@ -262,9 +262,21 @@
   }
 
   $$("form[data-validate]").forEach((form) => {
-    const controls = $$("input, textarea, select", form).filter((c) => c.type !== "hidden");
-    const status = $(".form-status", form);
+    const controls = $$("input, textarea, select", form).filter((c) => {
+      if (c.type === "hidden") return false;
+      if (c.name === "website-hp" || c.closest(".hp-field")) return false;
+      return true;
+    });
+    const statusEl = $(".form-status", form);
     const submitBtn = $("button[type=submit]", form);
+    const endpoint = form.getAttribute("data-endpoint") || (form.id === "contact-form" ? "/api/contact" : "");
+    let submitting = false;
+
+    const setStatus = (type, message) => {
+      if (!statusEl) return;
+      statusEl.className = "form-status is-visible" + (type ? " " + type : "");
+      statusEl.textContent = message || "";
+    };
 
     controls.forEach((c) => {
       c.addEventListener("blur", () => validateField(c));
@@ -274,8 +286,10 @@
       });
     });
 
-    form.addEventListener("submit", (e) => {
+    form.addEventListener("submit", async (e) => {
       e.preventDefault();
+      if (submitting) return;
+
       let ok = true;
       let firstInvalid = null;
       controls.forEach((c) => {
@@ -283,27 +297,91 @@
         if (!v && !firstInvalid) firstInvalid = c;
         ok = ok && v;
       });
-      if (status) status.className = "form-status";
 
       if (!ok) {
-        if (status) {
-          status.classList.add("error", "is-visible");
-          status.textContent = "Please fix the highlighted fields and try again.";
-        }
+        setStatus("error", "Please fix the highlighted fields and try again.");
         if (firstInvalid) firstInvalid.focus();
         return;
       }
 
-      // No network request is made until a delivery endpoint is configured.
-      if (submitBtn) submitBtn.classList.add("is-loading");
-      setTimeout(() => {
-        if (submitBtn) submitBtn.classList.remove("is-loading");
-        if (status) {
-          status.classList.add("success", "is-visible");
-          status.textContent = form.dataset.success || "Thanks — the form validated successfully. Please email hello@ojarislabs.com until direct form delivery is connected.";
+      // Newsletter (and other forms without an endpoint) stay client-only.
+      if (!endpoint) {
+        if (submitBtn) submitBtn.classList.add("is-loading");
+        setTimeout(() => {
+          if (submitBtn) submitBtn.classList.remove("is-loading");
+          setStatus(
+            "success",
+            form.dataset.success || "Thanks — this form is not connected to email delivery yet."
+          );
+          form.reset();
+        }, 600);
+        return;
+      }
+
+      submitting = true;
+      if (submitBtn) {
+        submitBtn.classList.add("is-loading");
+        submitBtn.disabled = true;
+      }
+      setStatus("", "Sending your message…");
+
+      const payload = {
+        name: (form.elements.namedItem("name") || {}).value || "",
+        email: (form.elements.namedItem("email") || {}).value || "",
+        company: (form.elements.namedItem("company") || {}).value || "",
+        website: (form.elements.namedItem("website") || {}).value || "",
+        service: (form.elements.namedItem("service") || {}).value || "",
+        budget: (form.elements.namedItem("budget") || {}).value || "",
+        timeline: (form.elements.namedItem("timeline") || {}).value || "",
+        details: (form.elements.namedItem("details") || {}).value || "",
+        agree: form.elements.namedItem("agree") && form.elements.namedItem("agree").checked ? "true" : "",
+        "website-hp": (form.elements.namedItem("website-hp") || {}).value || "",
+        pageUrl: window.location.href
+      };
+
+      try {
+        const res = await fetch(endpoint, {
+          method: "POST",
+          headers: { "Content-Type": "application/json", Accept: "application/json" },
+          body: JSON.stringify(payload),
+          credentials: "same-origin"
+        });
+        let data = null;
+        try {
+          data = await res.json();
+        } catch (_) {
+          data = null;
         }
-        form.reset();
-      }, 1100);
+
+        if (res.ok && data && data.ok) {
+          setStatus("success", data.message || form.dataset.success || "Thanks — your message was sent.");
+          form.reset();
+        } else {
+          const msg =
+            (data && data.message) ||
+            (res.status === 429
+              ? "Too many submissions. Please try again later."
+              : "We could not send your message right now. Please try again or email hello@ojarislabs.com.");
+          setStatus("error", msg);
+          if (data && Array.isArray(data.fields)) {
+            data.fields.forEach((name) => {
+              const control = form.elements.namedItem(name);
+              if (control) validateField(control);
+            });
+          }
+        }
+      } catch (_) {
+        setStatus(
+          "error",
+          "Network error — please check your connection and try again, or email hello@ojarislabs.com."
+        );
+      } finally {
+        submitting = false;
+        if (submitBtn) {
+          submitBtn.classList.remove("is-loading");
+          submitBtn.disabled = false;
+        }
+      }
     });
   });
 
