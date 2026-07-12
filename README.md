@@ -30,15 +30,36 @@ npm start        # production Node server (static + POST /api/contact)
 
 ### Contact form email (Hostinger)
 
-`npm start` runs `node server/index.mjs`, which serves `dist/` and handles `POST /api/contact`.
+Production page: https://ojarislabs.com/contact.html  
+API endpoint: `POST /api/contact`  
+Start command: `npm start` (runs `node server/index.mjs` after `prestart` build)  
+Build command: `npm run build`
 
-Configure these environment variables in Hostinger (see `.env.example`):
+The server sends enquiries to **hello@ojarislabs.com** over Hostinger SMTP.
 
-- `SMTP_HOST`, `SMTP_PORT`, `SMTP_SECURE`, `SMTP_USER`, `SMTP_PASS`
-- `CONTACT_TO_EMAIL=hello@ojarislabs.com`
-- `CONTACT_FROM_EMAIL=` (authenticated mailbox allowed by your SMTP provider)
+Set these environment variables in the Hostinger Node.js panel (see `.env.example`):
 
-Never put SMTP passwords in frontend JS. For local API testing without SMTP:
+```
+PORT=3000
+HOST=0.0.0.0
+CONTACT_TO_EMAIL=hello@ojarislabs.com
+CONTACT_FROM_EMAIL=hello@ojarislabs.com
+SMTP_HOST=smtp.hostinger.com
+SMTP_PORT=465
+SMTP_SECURE=true
+SMTP_USER=hello@ojarislabs.com
+SMTP_PASS=<set securely in Hostinger — never commit>
+```
+
+Notes:
+
+- Port **465** uses implicit TLS/SSL → `SMTP_SECURE=true`.
+- **From** is the authenticated mailbox (`OjarisLabs Website <hello@ojarislabs.com>`).
+- **Reply-To** is the visitor’s email so mailbox “Reply” goes to them.
+- Do **not** put the visitor’s address in From (SPF/DMARC).
+- IMAP/POP are not used by the website — only SMTP for sending.
+- Never put `SMTP_PASS` in frontend JS, HTML, README, or Git.
+- Leave `CONTACT_DRY_RUN` unset/false in production. Use it only for local tests:
 
 ```bash
 npm run build && CONTACT_DRY_RUN=true npm run dev:server

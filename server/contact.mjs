@@ -1,7 +1,7 @@
 /* =====================================================================
    POST /api/contact — validate, spam-check, email hello@ojarislabs.com
    ===================================================================== */
-import { getMailConfig, isMailConfigured, sendContactEmail } from "./mail.mjs";
+import { getMailConfig, isMailConfigured, missingMailEnv, sendContactEmail } from "./mail.mjs";
 import { rateLimit } from "./rate-limit.mjs";
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -246,7 +246,11 @@ export async function handleContact(req, res) {
   }
 
   if (!isMailConfigured()) {
-    console.error("[contact] Mail is not configured. Set SMTP_* and CONTACT_FROM_EMAIL (or CONTACT_DRY_RUN=true).");
+    const missing = missingMailEnv(getMailConfig());
+    console.error(
+      "[contact] Mail is not configured. Missing env:",
+      missing.length ? missing.join(", ") : "unknown"
+    );
     return json(res, 503, {
       ok: false,
       error: "mail_unavailable",
