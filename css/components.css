@@ -101,17 +101,18 @@
   gap: 1rem;
 }
 
-.brand { display: inline-flex; align-items: center; gap: 0.6rem; }
-.brand svg { width: 34px; height: 34px; }
-.brand .brand-name {
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: 1.35rem;
-  letter-spacing: -0.02em;
-  color: #fff;
+.brand { display: inline-flex; align-items: center; }
+.brand-logo {
+  display: block;
+  width: clamp(150px, 12vw, 190px);
+  height: auto;
+  max-height: 44px;
+  object-fit: contain;
 }
-.brand .brand-name b { font-weight: 700; }
-.brand .brand-name .g { color: var(--oj-orange); }
+.footer-brand .brand-logo {
+  width: min(220px, 100%);
+  max-height: 52px;
+}
 
 .primary-nav ul { display: flex; align-items: center; gap: clamp(0.5rem, 0.2rem + 1vw, 1.9rem); }
 .primary-nav a {

@@ -164,7 +164,7 @@ export function renderHome() {
           </div>
           <div class="ojas-values reveal">
             <div class="ojas-core-card" aria-hidden="true">
-              <img src="${base}assets/brand/ojarislabs-mark.svg" width="52" height="52" decoding="async" alt="" />
+              <img src="${base}assets/brand/ojarislabs-icon.png" width="555" height="566" decoding="async" alt="" />
               <span>OJAS</span>
             </div>
             ${principles.map((p, i) => `<article class="ojas-value-card">
@@ -265,7 +265,7 @@ export function renderHome() {
       "@id": SITE_URL + "/#org",
       name: "OjarisLabs",
       url: SITE_URL + "/",
-      logo: SITE_URL + "/assets/brand/ojarislabs-logo-dark.svg",
+      logo: SITE_URL + "/assets/brand/ojarislabs-logo.png",
       description: BRAND.description,
       sameAs: [BRAND.social.linkedin, BRAND.social.x, BRAND.social.github]
     },
@@ -939,7 +939,7 @@ export function renderArticle(a) {
       datePublished: a.date,
       dateModified: a.updated || a.date,
       author: { "@type": "Organization", name: "OjarisLabs" },
-      publisher: { "@type": "Organization", name: "OjarisLabs", logo: { "@type": "ImageObject", url: SITE_URL + "/assets/brand/ojarislabs-logo-dark.svg" } },
+      publisher: { "@type": "Organization", name: "OjarisLabs", logo: { "@type": "ImageObject", url: SITE_URL + "/assets/brand/ojarislabs-logo.png" } },
       mainEntityOfPage: SITE_URL + "/resources/" + a.slug + ".html",
       image: SITE_URL + "/assets/brand/og-default.jpg"
     }

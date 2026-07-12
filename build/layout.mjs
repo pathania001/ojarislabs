@@ -81,8 +81,8 @@ const P = {
 export const icon = (name, cls = "") =>
   `<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"${cls ? ` class="${cls}"` : ""}>${P[name] || P.check}</svg>`;
 
-const brandMark = (id) =>
-  `<svg viewBox="0 0 48 48" fill="none" aria-hidden="true"><defs><linearGradient id="${id}" x1="6" y1="42" x2="42" y2="6" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#FF8A00"/><stop offset=".35" stop-color="#F72585"/><stop offset=".68" stop-color="#8B3DFF"/><stop offset="1" stop-color="#168BFF"/></linearGradient></defs><path d="M33.5 9.8A17 17 0 1 0 41 24" stroke="url(#${id})" stroke-width="5.2" stroke-linecap="round"/><path d="M13.5 34.5 38 10" stroke="url(#${id})" stroke-width="5.2" stroke-linecap="round"/><circle cx="40.4" cy="8" r="3.3" fill="#FF8A00"/></svg>`;
+const brandLogo = (base) =>
+  `<img class="brand-logo" src="${base}assets/brand/ojarislabs-logo.png" width="1405" height="317" alt="OjarisLabs" decoding="async" />`;
 
 export const NAV = [
   { key: "home", label: "Home", file: "" },
@@ -121,8 +121,11 @@ export function head({ base, title, description, canonicalPath, ogType = "websit
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="${title}" />
   <meta name="twitter:description" content="${description}" />
-  <link rel="icon" href="${base}assets/brand/favicon.svg" type="image/svg+xml" />
-  <link rel="apple-touch-icon" href="${base}assets/brand/apple-touch-icon.png" />
+  <link rel="icon" href="/assets/brand/favicon.ico" sizes="any" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/brand/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/brand/favicon-16x16.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/brand/apple-touch-icon.png" />
+  <link rel="manifest" href="/assets/brand/site.webmanifest" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />${preload}
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet" />
@@ -145,8 +148,7 @@ export function header(base, activeKey) {
   <header class="site-header" id="site-header">
     <div class="header-inner">
       <a class="brand" href="${base}" aria-label="OjarisLabs home">
-        ${brandMark("hm")}
-        <span class="brand-name">OjarisLabs</span>
+        ${brandLogo(base)}
       </a>
       <nav class="primary-nav" id="primary-nav" aria-label="Primary">
         <ul>${items}</ul>
@@ -177,7 +179,7 @@ export function footer(base) {
     <div class="container container--wide">
       <div class="footer-top">
         <div class="footer-brand">
-          <a class="brand" href="${base}" aria-label="OjarisLabs home">${brandMark("fm")}<span class="brand-name">OjarisLabs</span></a>
+          <a class="brand" href="${base}" aria-label="OjarisLabs home">${brandLogo(base)}</a>
           <p>A digital engineering & growth partner — helping businesses design, build, automate and grow through modern technology.</p>
           ${social(base)}
         </div>

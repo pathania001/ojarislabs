@@ -111,7 +111,7 @@ export function render404() {
   const main = `
   <main id="main" class="hero" style="min-height:80vh;display:grid;place-items:center;text-align:center">
     <div class="container">
-      <img src="${base}assets/images/hero-orbital.svg" width="240" height="240" decoding="async" alt="OjarisLabs orbital symbol" style="width:200px;margin:0 auto 1.5rem" />
+      <img src="${base}assets/brand/ojarislabs-icon.png" width="555" height="566" decoding="async" alt="OjarisLabs brand icon" style="width:200px;height:auto;margin:0 auto 1.5rem" />
       <p class="eyebrow eyebrow--center">Error 404</p>
       <h1 class="hero-title" style="margin-bottom:1rem">Page <span class="gradient-text">Not Found.</span></h1>
       <p class="lead measure mx-auto" style="margin-bottom:2rem">The page you're looking for doesn't exist or has moved. Let's get you back on track.</p>

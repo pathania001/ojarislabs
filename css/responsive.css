@@ -107,7 +107,7 @@
 /* ---- Mobile ---- */
 @media (max-width: 560px) {
   :root { --header-h: 66px; }
-  .brand .brand-name { font-size: 1.15rem; }
+  .brand-logo { width: 146px; max-height: 36px; }
 
   .cols-2, .cols-3, .cols-4, .cols-5,
   .card-grid.cols-2, .card-grid.cols-3 { grid-template-columns: 1fr; }
