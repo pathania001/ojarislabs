@@ -22,8 +22,48 @@ robots.txt, sitemap.xml, 404.html
 ## Getting started
 
 ```bash
-npm install      # install dev tooling (serve + linters)
-npm run dev      # start local dev server at http://localhost:3000
+npm install      # install tooling + nodemailer
+npm run build    # generate static HTML into repo root + dist/
+npm run dev      # static-only preview at http://localhost:3000
+npm start        # production Node server (static + POST /api/contact)
+```
+
+### Contact form email (Hostinger)
+
+Production page: https://ojarislabs.com/contact.html  
+API endpoint: `POST /api/contact`  
+Start command: `npm start` (runs `node server/index.mjs` after `prestart` build)  
+Build command: `npm run build`
+
+The server sends enquiries to **hello@ojarislabs.com** over Hostinger SMTP.
+
+Set these environment variables in the Hostinger Node.js panel (see `.env.example`):
+
+```
+PORT=3000
+HOST=0.0.0.0
+CONTACT_TO_EMAIL=hello@ojarislabs.com
+CONTACT_FROM_EMAIL=hello@ojarislabs.com
+SMTP_HOST=smtp.hostinger.com
+SMTP_PORT=465
+SMTP_SECURE=true
+SMTP_USER=hello@ojarislabs.com
+SMTP_PASS=<set securely in Hostinger — never commit>
+```
+
+Notes:
+
+- Port **465** uses implicit TLS/SSL → `SMTP_SECURE=true`.
+- **From** is the authenticated mailbox (`OjarisLabs Website <hello@ojarislabs.com>`).
+- **Reply-To** is the visitor’s email so mailbox “Reply” goes to them.
+- Do **not** put the visitor’s address in From (SPF/DMARC).
+- IMAP/POP are not used by the website — only SMTP for sending.
+- Never put `SMTP_PASS` in frontend JS, HTML, README, or Git.
+- Leave `CONTACT_DRY_RUN` unset/false in production. Use it only for local tests:
+
+```bash
+npm run build && CONTACT_DRY_RUN=true npm run dev:server
+npm run test:contact
 ```
 
 ## Scripts

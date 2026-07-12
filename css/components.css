@@ -594,6 +594,16 @@ select.control { appearance: none; background-image: url("data:image/svg+xml,%3C
 .form-status.is-visible { display: block; }
 .form-status.success { background: #eafaf1; color: #147a45; border: 1px solid #b7eccd; }
 .form-status.error { background: #fdeef2; color: #b3245a; border: 1px solid #f6c6d7; }
+.hp-field {
+  position: absolute !important;
+  left: -10000px !important;
+  top: auto !important;
+  width: 1px !important;
+  height: 1px !important;
+  overflow: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
 
 .btn.is-loading { pointer-events: none; opacity: 0.85; }
 .btn .spinner { display: none; width: 18px; height: 18px; border: 2px solid rgba(255, 255, 255, 0.5); border-top-color: #fff; border-radius: 50%; animation: spin 0.7s linear infinite; }
@@ -654,6 +664,9 @@ select.control { appearance: none; background-image: url("data:image/svg+xml,%3C
 }
 .socials a:hover { color: #fff; border-color: transparent; background-image: var(--grad-primary); transform: translateY(-2px); }
 .socials svg { width: 18px; height: 18px; }
+.footer-contact { margin: 0; font-size: var(--fs-sm); }
+.footer-contact a { color: var(--text-on-dark-soft); text-decoration: none; transition: color var(--dur) var(--ease); }
+.footer-contact a:hover { color: #fff; }
 .footer-bottom {
   border-top: 1px solid var(--border-dark);
   padding-block: 1.5rem;
