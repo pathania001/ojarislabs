@@ -78,8 +78,8 @@ export function renderHome() {
     { icon: "growth", t: "Growth", d: "Technology connected to progress.", col: 1, row: 3, ac: "ico-cyan" },
     { icon: "infinity", t: "Transformation", d: "Ideas turned into meaningful outcomes.", col: 3, row: 3, ac: "ico-blue" }
   ];
-  // 08 — Why OjarisLabs (bento)
-  const bento = [
+  // 08 — Why OjarisLabs
+  const whyBenefits = [
     { t: "Real Experience", d: "A new technology brand shaped by years of hands-on work across websites, software, eCommerce, integrations and digital platforms.", icon: "clock", ac: "ico-orange", lg: true },
     { t: "Full-Stack Thinking", d: "Strategy, UX, engineering, deployment and optimization connected from the beginning.", icon: "layers", ac: "ico-purple" },
     { t: "Flexible Collaboration", d: "A practical delivery approach designed to work across businesses, projects and time zones.", icon: "globe", ac: "ico-cyan" },
@@ -95,7 +95,7 @@ export function renderHome() {
     { icon: "brush", ac: "ico-pink", t: "Design & Growth", items: ["Figma", "UI/UX", "Technical SEO", "Analytics"] }
   ];
   const main = `
-  <main id="main">
+  <main id="main" class="home-main">
     <section class="hero">
       <div class="container container--wide">
         <div class="hero-grid">
@@ -131,85 +131,108 @@ export function renderHome() {
     </section>
 
     <!-- 05 — Our Process -->
-    <section class="section bg-light">
-      <div class="container">
-        <div class="section-head section-head--center">
+    <section class="home-section process-section">
+      <div class="home-container">
+        <div class="home-section-head home-section-head--center">
           ${eyebrow("Our Process", true)}
           <h2>From Idea to Impact.<br /><span class="gradient-text">Everything Connected.</span></h2>
           <p>A clear, collaborative process that turns ideas into scalable digital solutions.</p>
         </div>
-        <div class="journey">
-          <span class="journey-line" aria-hidden="true"></span>
-          ${processSteps.map((s, i) => `<div class="journey-step reveal" style="--i:${i}"><div class="jnode"><span class="jno">${s.no}</span>${icon(s.icon)}</div><h3>${s.t}</h3><p>${s.d}</p></div>`).join("\n          ")}
+        <div class="process-grid" aria-label="OjarisLabs process">
+          ${processSteps.map((s, i) => `<article class="process-card reveal" style="--i:${i}">
+            <div class="process-card-top">
+              <span class="process-number">${s.no}</span>
+              <span class="home-icon process-icon ${cyc(i)}">${icon(s.icon)}</span>
+            </div>
+            <h3>${s.t}</h3>
+            <p>${s.d}</p>
+          </article>`).join("\n          ")}
         </div>
       </div>
     </section>
 
-    <!-- 06 — The Ojas Principle -->
-    <section class="section bg-dark ojas-section">
-      <div class="container">
-        <div class="split" style="align-items:center">
-          <div class="reveal">
-            ${eyebrow("The Idea Behind the Name")}
+    <!-- 06 — The Ojas Philosophy -->
+    <section class="home-section ojas-section">
+      <div class="home-container">
+        <div class="ojas-layout">
+          <div class="ojas-copy reveal">
+            ${eyebrow("The Ojas Philosophy")}
             <h2>The Ojas in<br /><span class="gradient-text">Everything We Build.</span></h2>
-            <p style="margin-top:1.1rem">Ojas represents intelligent energy — the force behind clarity, momentum and meaningful progress.</p>
-            <p style="margin-top:.9rem">At OjarisLabs, that idea shapes how we approach technology and how we create impact.</p>
-            <div style="margin-top:1.75rem"><a class="btn btn--outline-light" href="${base}about.html">Our Philosophy ${icon("arrow", "arrow")}</a></div>
+            <p>Ojas represents intelligent energy — the force behind clarity, momentum and meaningful progress.</p>
+            <p>At OjarisLabs, that idea shapes how we approach technology and how we create impact.</p>
+            <a class="btn btn--outline-light" href="${base}about.html">Our Philosophy ${icon("arrow", "arrow")}</a>
           </div>
-          <div class="ojas-orbit reveal">
-            <span class="ojas-glow" aria-hidden="true"></span>
-            <span class="ojas-ring" aria-hidden="true"></span>
-            <div class="ojas-core"><img src="${base}assets/brand/ojarislabs-mark.svg" width="48" height="48" decoding="async" alt="" /><span>OJAS</span></div>
-            ${principles.map((p) => `<div class="ojas-node" style="grid-column:${p.col};grid-row:${p.row}"><span class="oi ${p.ac}">${icon(p.icon)}</span><h3>${p.t}</h3><p>${p.d}</p></div>`).join("\n            ")}
+          <div class="ojas-values reveal">
+            <div class="ojas-core-card" aria-hidden="true">
+              <img src="${base}assets/brand/ojarislabs-mark.svg" width="52" height="52" decoding="async" alt="" />
+              <span>OJAS</span>
+            </div>
+            ${principles.map((p, i) => `<article class="ojas-value-card">
+              <span class="home-icon ojas-value-icon ${p.ac}">${icon(p.icon)}</span>
+              <div>
+                <h3>${p.t}</h3>
+                <p>${p.d}</p>
+              </div>
+            </article>`).join("\n            ")}
           </div>
         </div>
       </div>
     </section>
 
     <!-- 07 — Why OjarisLabs -->
-    <section class="section bg-light">
-      <div class="container">
+    <section class="home-section why-section">
+      <div class="home-container">
         <div class="why-grid">
           <div class="why-intro reveal">
             ${eyebrow("Why OjarisLabs")}
             <h2>Built on Experience.<br /><span class="gradient-text">Focused on What Comes Next.</span></h2>
-            <p class="lead" style="margin-top:1rem">A new brand shaped by practical, hands-on experience — and built for what comes next.</p>
-          </div>
-          <div class="why-cards">
-            ${bento.map((b, i) => `<article class="why-card reveal" style="--i:${i}"><span class="card-icon ${b.ac}">${icon(b.icon)}</span><h3>${b.t}</h3><p>${b.d}</p></article>`).join("\n            ")}
+            <p class="lead">A new brand shaped by practical, hands-on experience — and built for what comes next.</p>
+            <div class="why-benefits">
+              ${whyBenefits.map((b, i) => `<article class="why-benefit reveal" style="--i:${i}">
+                <span class="home-icon why-benefit-icon ${b.ac}">${icon(b.icon)}</span>
+                <div>
+                  <h3>${b.t}</h3>
+                  <p>${b.d}</p>
+                </div>
+              </article>`).join("\n              ")}
+            </div>
           </div>
           <div class="why-visual reveal" aria-hidden="true">
-            <img src="${base}assets/images/why-visual.svg" width="400" height="400" loading="lazy" decoding="async" alt="" />
+            <img src="${base}assets/images/why-visual.svg" width="560" height="560" loading="lazy" decoding="async" alt="" />
           </div>
         </div>
       </div>
     </section>
 
-    <!-- 08 — Technology capabilities band -->
-    <section class="section bg-dark">
-      <div class="container">
-        <div class="section-head section-head--center">
+    <!-- 08 — Technology capabilities -->
+    <section class="home-section technology-section">
+      <div class="home-container">
+        <div class="home-section-head home-section-head--center">
           ${eyebrow("Built Across the Modern Digital Stack", true)}
           <h2>The Right Technology.<br /><span class="gradient-text">For the Right Problem.</span></h2>
         </div>
-        <div class="tech-band">
-          ${ecosystem.map((c, i) => `<div class="tech-col reveal" style="--i:${i % 3}"><span class="tech-col-ico ${c.ac}">${icon(c.icon)}</span><h3>${c.t}</h3><ul>${c.items.map((x) => `<li>${x}</li>`).join("")}</ul></div>`).join("\n          ")}
+        <div class="technology-grid">
+          ${ecosystem.map((c, i) => `<article class="technology-card reveal" style="--i:${i % 3}">
+            <span class="home-icon tech-category-icon ${c.ac}">${icon(c.icon)}</span>
+            <h3>${c.t}</h3>
+            <ul>${c.items.map((x) => `<li>${x}</li>`).join("")}</ul>
+          </article>`).join("\n          ")}
         </div>
-        <p style="text-align:center;font-size:var(--fs-xs);color:var(--text-on-dark-muted);margin-top:1.75rem">Technologies we build with. Names shown are not clients or official partners.</p>
+        <p class="technology-note">Technologies we build with. Names shown are not clients or official partners.</p>
       </div>
     </section>
 
     <!-- 09 — FAQ -->
-    <section class="section bg-light">
-      <div class="container">
+    <section class="home-section faq-section">
+      <div class="home-container">
         <div class="faq-layout">
           <div class="reveal">
             ${eyebrow("FAQ")}
             <h2>Questions Before<br /><span class="gradient-text">We Build?</span></h2>
-            <p class="lead" style="margin-top:1rem">Clear answers to help you understand how we work and whether OjarisLabs is the right fit for your project.</p>
-            <p style="margin-top:1rem">Still have a question? <a href="${base}contact.html" style="color:var(--oj-purple);font-weight:600">Let's Connect &rarr;</a></p>
+            <p class="lead">Clear answers to help you understand how we work and whether OjarisLabs is the right fit for your project.</p>
+            <p class="faq-contact">Still have a question? <a href="${base}contact.html">Let's Connect &rarr;</a></p>
           </div>
-          <div class="faq-grid">
+          <div class="faq-accordion">
             ${faqBlock(HOME_FAQ)}
           </div>
         </div>
@@ -217,15 +240,19 @@ export function renderHome() {
     </section>
 
     <!-- 10 — Final CTA -->
-    <section class="cta-hero">
-      <img class="cta-orbital" src="${base}assets/images/hero-orbital.svg" width="360" height="360" loading="lazy" decoding="async" alt="" />
-      <div class="container container--narrow" style="position:relative;z-index:1;text-align:center">
-        ${eyebrow("Have an Idea?", true)}
-        <h2 style="color:#fff">Let's Build What<br /><span class="gradient-text">Comes Next.</span></h2>
-        <p style="color:rgba(255,255,255,.9);max-width:60ch;margin:1.1rem auto 2rem">Whether you're launching something new, improving an existing platform or exploring what AI and automation can do for your business, let's start with a conversation.</p>
-        <div class="hero-actions" style="justify-content:center">
-          <a class="btn btn--primary btn--lg" href="${base}contact.html">Start a Project ${icon("arrow", "arrow")}</a>
-          <a class="btn btn--outline-light btn--lg" href="${base}services.html">Explore Our Services</a>
+    <section class="home-section final-cta">
+      <div class="home-container">
+        <div class="final-cta-panel">
+          <div class="final-cta-copy">
+            ${eyebrow("Have an Idea?")}
+            <h2>Let's Build What<br /><span class="gradient-text">Comes Next.</span></h2>
+            <p>Whether you're launching something new, improving an existing platform or exploring what AI and automation can do for your business, let's start with a conversation.</p>
+            <div class="final-cta-actions">
+              <a class="btn btn--primary btn--lg" href="${base}contact.html">Start a Project ${icon("arrow", "arrow")}</a>
+              <a class="btn btn--outline-light btn--lg" href="${base}services.html">Explore Our Services</a>
+            </div>
+          </div>
+          <img class="final-cta-graphic" src="${base}assets/images/hero-orbital.svg" width="420" height="420" loading="lazy" decoding="async" alt="" />
         </div>
       </div>
     </section>
@@ -245,7 +272,7 @@ export function renderHome() {
     { "@context": "https://schema.org", "@type": "WebSite", "@id": SITE_URL + "/#website", url: SITE_URL + "/", name: "OjarisLabs", publisher: { "@id": SITE_URL + "/#org" } },
     faqJsonLd(HOME_FAQ)
   ];
-  return page({ base, activeKey: "home", title: "OjarisLabs | Web, Software, AI & Digital Engineering", description: "OjarisLabs builds modern websites, custom software, AI automation, eCommerce experiences and scalable digital solutions for businesses ready to grow.", canonicalPath: "", jsonLd, main, preloadImage: "assets/images/hero-home-energy.svg", bodyClass: "page-home" });
+  return page({ base, activeKey: "home", title: "OjarisLabs | Web, Software, AI & Digital Engineering", description: "OjarisLabs builds modern websites, custom software, AI automation, eCommerce experiences and scalable digital solutions for businesses ready to grow.", canonicalPath: "", jsonLd, main, preloadImage: "assets/images/hero-home-energy.svg", bodyClass: "page-home home-page" });
 }
 
 /* ============================ SERVICES ============================ */

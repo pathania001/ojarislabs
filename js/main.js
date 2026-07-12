@@ -17,6 +17,15 @@
     window.addEventListener("scroll", onScroll, { passive: true });
   }
 
+  /* ---------- Native FAQ accordions: ARIA state sync ---------- */
+  $$(".faq-item").forEach((item) => {
+    const summary = $("summary", item);
+    if (!summary) return;
+    const sync = () => summary.setAttribute("aria-expanded", item.open ? "true" : "false");
+    sync();
+    item.addEventListener("toggle", sync);
+  });
+
   /* ---------- Mobile navigation ---------- */
   const navToggle = $(".nav-toggle");
   const nav = $("#primary-nav");
