@@ -187,6 +187,32 @@ for (const file of htmlFiles) {
     if (!/\balt=/.test(img)) errors.push([rel, "MISSING ALT: " + img.slice(0, 60) + "…"]);
   }
 
+  // Descriptive link names (Lighthouse "Links do not have descriptive text")
+  const GENERIC_LINK_NAME = /^(learn more|read more|click here|here|more|link|read|explore|details|info)$/i;
+  for (const m of html.matchAll(/<a\b([^>]*)>([\s\S]*?)<\/a>/gi)) {
+    const attrs = m[1];
+    const inner = m[2];
+    const href = (attrs.match(/\bhref="([^"]*)"/) || [])[1] || "";
+    if (!href || href === "#" || IGNORE.test(href)) continue;
+    const aria = (attrs.match(/\baria-label="([^"]*)"/) || [])[1];
+    const labelledby = (attrs.match(/\baria-labelledby="([^"]*)"/) || [])[1];
+    let text = inner
+      .replace(/<svg[\s\S]*?<\/svg>/gi, "")
+      .replace(/<script[\s\S]*?<\/script>/gi, "")
+      .replace(/<style[\s\S]*?<\/style>/gi, "")
+      .replace(/<[^>]+>/g, " ")
+      .replace(/&[a-z]+;/gi, " ")
+      .replace(/\s+/g, " ")
+      .trim();
+    const imgAlts = [...inner.matchAll(/<img[^>]*\balt="([^"]*)"/gi)].map((x) => x[1]).filter(Boolean);
+    const name = (aria || labelledby || text || imgAlts.join(" ")).trim();
+    if (!name) {
+      errors.push([rel, `LINK WITHOUT ACCESSIBLE NAME: ${href}`]);
+    } else if (GENERIC_LINK_NAME.test(name)) {
+      errors.push([rel, `NON-DESCRIPTIVE LINK TEXT "${name}" → ${href}`]);
+    }
+  }
+
   // JSON-LD (all pages including 404)
   const ldBlocks = parseJsonLdBlocks(html, rel);
   if (!noindex) {
@@ -381,6 +407,34 @@ else {
     errors.push(["robots.txt", "MISSING OR INCORRECT SITEMAP DIRECTIVE"]);
   }
   if (BAD_HOST_RE.test(robots)) errors.push(["robots.txt", "NON-PRODUCTION URL IN ROBOTS.TXT"]);
+}
+
+// llms.txt structure (llmstxt.org / Lighthouse Agent Accessibility)
+const llmsPath = join(root, "llms.txt");
+if (!existsSync(llmsPath)) errors.push(["llms.txt", "MISSING LLMS.TXT"]);
+else {
+  const llms = readFileSync(llmsPath, "utf8");
+  if (llms.length < 50) errors.push(["llms.txt", "LLMS.TXT TOO SHORT"]);
+  const h1Count = [...llms.matchAll(/^# [^#\n]+$/gm)].length;
+  if (h1Count !== 1) errors.push(["llms.txt", `LLMS.TXT SHOULD HAVE EXACTLY ONE H1 (found ${h1Count})`]);
+  if (!/^# OjarisLabs\s*$/m.test(llms)) errors.push(["llms.txt", "LLMS.TXT H1 SHOULD BE '# OjarisLabs'"]);
+  if (!/^> .+/m.test(llms)) errors.push(["llms.txt", "LLMS.TXT MISSING BLOCKQUOTE SUMMARY"]);
+  const mdLinks = [...llms.matchAll(/\[([^\]]+)\]\((https?:\/\/[^)]+)\)/g)];
+  if (mdLinks.length < 1) errors.push(["llms.txt", "LLMS.TXT MISSING MARKDOWN LINKS"]);
+  for (const [, label, url] of mdLinks) {
+    if (url !== SITE_URL + "/" && !url.startsWith(SITE_URL + "/")) {
+      errors.push(["llms.txt", `NON-PRODUCTION LLMS URL: ${url}`]);
+      continue;
+    }
+    if (BAD_HOST_RE.test(url)) {
+      errors.push(["llms.txt", `NON-PRODUCTION LLMS URL: ${url}`]);
+      continue;
+    }
+    const pathPart = url === SITE_URL + "/" ? "index.html" : url.slice((SITE_URL + "/").length);
+    const full = join(root, pathPart.split("?")[0]);
+    if (!existsSync(full)) errors.push(["llms.txt", `LLMS.TXT LINK TARGET MISSING: ${label} → ${url}`]);
+  }
+  if (/localhost|hostingersite|staging/i.test(llms)) errors.push(["llms.txt", "NON-PRODUCTION HOST IN LLMS.TXT"]);
 }
 
 console.log(`Audited ${htmlFiles.length} HTML files, ${linkCount} internal links, ${sitemapUrls.size} sitemap URLs.\n`);

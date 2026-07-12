@@ -288,6 +288,9 @@ export function footer(base) {
 export const arrowLink = (base, file, label) =>
   `<a class="link-arrow" href="${link(base, file)}">${label} ${icon("arrow")}</a>`;
 
+/** Build descriptive CTA label for a destination (avoids generic "Learn more"). */
+export const exploreLabel = (name) => `Explore ${String(name).replace(/&amp;/g, "&")}`;
+
 export const heroVisual = (base, src = "hero-orbital.svg", alt = "OjarisLabs abstract brand visual") =>
   `<div class="hero-visual"><img src="${base}assets/images/${src}" width="520" height="520" fetchpriority="high" decoding="async" alt="${alt}" /></div>`;
 

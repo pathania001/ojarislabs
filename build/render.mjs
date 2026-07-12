@@ -60,7 +60,7 @@ export function renderHome() {
             <span class="card-icon ${g.ac}">${icon(g.icon)}</span>
             <h3>${g.t}</h3>
             <p>${g.d}</p>
-            <div class="card-foot">${arrowLink(base, g.slug, "Learn more")}</div>
+            <div class="card-foot">${arrowLink(base, g.slug, "Explore " + g.t.replace(/&amp;/g, "&"))}</div>
           </article>`
   ).join("\n          ");
   // 05 — Our Process
@@ -898,7 +898,7 @@ export function renderServicePage(s) {
       <div class="container">
         <div class="section-head section-head--center">${eyebrow("Related Services", true)}<h2>Explore <span class="gradient-text">related work</span></h2></div>
         <div class="card-grid cols-4">
-          ${related.map((r, i) => `<a class="card reveal" style="--i:${i}" href="${base}${r.slug}.html"><span class="card-icon ${ACCENT[r.group] || cyc(i)}">${icon(r.icon)}</span><h3>${r.eyebrow}</h3><p>${r.intro.split(".")[0]}.</p><div class="card-foot"><span class="link-arrow">Learn more ${icon("arrow")}</span></div></a>`).join("\n          ")}
+          ${related.map((r, i) => `<a class="card reveal" style="--i:${i}" href="${base}${r.slug}.html"><span class="card-icon ${ACCENT[r.group] || cyc(i)}">${icon(r.icon)}</span><h3>${r.eyebrow}</h3><p>${r.intro.split(".")[0]}.</p><div class="card-foot"><span class="link-arrow">Explore ${r.eyebrow} ${icon("arrow")}</span></div></a>`).join("\n          ")}
         </div>
       </div>
     </section>
@@ -934,7 +934,7 @@ export function renderArticle(a) {
         `<h2 id="${s.id}">${s.heading}</h2>\n${s.body.map((p) => `<p>${p}</p>`).join("\n")}${s.list ? `\n<ul>${s.list.map((li) => `<li>${li}</li>`).join("")}</ul>` : ""}`
     )
     .join("\n");
-  const related = a.related.map((r) => `<a class="card reveal" href="${base}${r[1]}"><span class="card-icon ico-purple">${icon("doc")}</span><h3 style="font-size:1rem">${r[0]}</h3><div class="card-foot"><span class="link-arrow">Read ${icon("arrow")}</span></div></a>`).join("\n          ");
+  const related = a.related.map((r) => `<a class="card reveal" href="${base}${r[1]}"><span class="card-icon ico-purple">${icon("doc")}</span><h3 style="font-size:1rem">${r[0]}</h3><div class="card-foot"><span class="link-arrow">Open ${r[0]} ${icon("arrow")}</span></div></a>`).join("\n          ");
   const main = `
   <main id="main">
     <section class="hero hero--compact">
