@@ -33,12 +33,80 @@ export const BRAND = {
     "OjarisLabs is a digital engineering and growth company providing web development, custom software, AI automation, eCommerce, mobile apps, UI/UX design, SEO and cloud services.",
   email: "hello@ojarislabs.com",
   securityEmail: "security@ojarislabs.com",
-  social: {
-    linkedin: "https://www.linkedin.com/company/ojarislabs",
-    x: "https://x.com/ojarislabs",
-    github: "https://github.com/ojarislabs"
-  }
+  /* Official social profiles — only include URLs that resolve to verified OjarisLabs accounts.
+     X, GitHub and LinkedIn company pages were not verified as of the 2026-07 audit; omit sameAs until confirmed. */
+  social: {}
 };
+
+export const ORG_ID = SITE_URL + "/#organization";
+export const WEBSITE_ID = SITE_URL + "/#website";
+export const LOGO_URL = SITE_URL + "/assets/brand/ojarislabs-logo.png";
+export const OG_IMAGE_URL = SITE_URL + "/assets/brand/og-default.jpg";
+
+export function organizationJsonLd() {
+  const org = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "@id": ORG_ID,
+    name: "OjarisLabs",
+    url: SITE_URL + "/",
+    logo: {
+      "@type": "ImageObject",
+      url: LOGO_URL,
+      width: 1405,
+      height: 317
+    },
+    description: BRAND.description,
+    email: BRAND.email
+  };
+  const sameAs = Object.values(BRAND.social).filter(Boolean);
+  if (sameAs.length) org.sameAs = sameAs;
+  return org;
+}
+
+export function websiteJsonLd() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "@id": WEBSITE_ID,
+    url: SITE_URL + "/",
+    name: "OjarisLabs",
+    description: BRAND.description,
+    publisher: { "@id": ORG_ID },
+    inLanguage: "en"
+  };
+}
+
+/** WebPage / AboutPage / ContactPage / CollectionPage entity with stable @id links. */
+export function webPageJsonLd({ path, name, description, type = "WebPage" }) {
+  const url = path === "" || path === "/" ? SITE_URL + "/" : SITE_URL + "/" + path.replace(/^\//, "");
+  return {
+    "@context": "https://schema.org",
+    "@type": type,
+    "@id": url + "#webpage",
+    url,
+    name,
+    description,
+    isPartOf: { "@id": WEBSITE_ID },
+    about: { "@id": ORG_ID },
+    inLanguage: "en",
+    publisher: { "@id": ORG_ID }
+  };
+}
+
+export function serviceJsonLd({ name, description, url, serviceType }) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "@id": url + "#service",
+    name,
+    description,
+    url,
+    serviceType: serviceType || name,
+    provider: { "@id": ORG_ID },
+    areaServed: "Worldwide"
+  };
+}
 
 /* ---------- inline SVG icons (stroke = currentColor) ---------- */
 const P = {
@@ -98,9 +166,11 @@ export const link = (base, file) => (file === "" ? base : base + file);
 
 export function head({ base, title, description, canonicalPath, ogType = "website", extraJsonLd = [], preloadImage = "assets/images/hero-orbital.svg", bodyClass = "" }) {
   const canonical = canonicalPath === "" ? SITE_URL + "/" : SITE_URL + "/" + canonicalPath;
-  const ogImage = SITE_URL + "/assets/brand/og-default.jpg";
-  const preload = preloadImage ? `\n  <link rel="preload" as="image" href="${base}${preloadImage}" />` : "";
-  const ld = extraJsonLd
+  const ogImage = OG_IMAGE_URL;
+  const preload = preloadImage
+    ? `\n  <link rel="preload" as="image" href="${base}${preloadImage}" fetchpriority="high" />`
+    : "";
+  const ld = [organizationJsonLd(), websiteJsonLd(), ...extraJsonLd]
     .map((o) => `  <script type="application/ld+json">\n${JSON.stringify(o, null, 2)}\n  </script>`)
     .join("\n");
   return `<!DOCTYPE html>
@@ -121,6 +191,7 @@ export function head({ base, title, description, canonicalPath, ogType = "websit
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="${title}" />
   <meta name="twitter:description" content="${description}" />
+  <meta name="twitter:image" content="${ogImage}" />
   <link rel="icon" href="/assets/brand/favicon.ico" sizes="any" />
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/brand/favicon-32x32.png" />
   <link rel="icon" type="image/png" sizes="16x16" href="/assets/brand/favicon-16x16.png" />
@@ -162,12 +233,25 @@ export function header(base, activeKey) {
   <div class="nav-backdrop" aria-hidden="true"></div>`;
 }
 
-const social = (b) => `
+const social = (b) => {
+  const items = [];
+  if (BRAND.social.linkedin) {
+    items.push(`<li><a href="${BRAND.social.linkedin}" rel="noopener" aria-label="OjarisLabs on LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5A2.5 2.5 0 002.5 6a2.5 2.5 0 105 0 2.5 2.5 0 00-2.52-2.5zM3 9h4v12H3zM9 9h3.8v1.7h.05c.53-1 1.83-2.05 3.76-2.05C20.4 8.65 21 11 21 14v7h-4v-6.2c0-1.48-.03-3.38-2.06-3.38-2.06 0-2.38 1.6-2.38 3.27V21H9z"/></svg></a></li>`);
+  }
+  if (BRAND.social.x) {
+    items.push(`<li><a href="${BRAND.social.x}" rel="noopener" aria-label="OjarisLabs on X"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.9 2H22l-7.5 8.6L23 22h-6.8l-5.3-7-6.1 7H1.7l8-9.2L1 2h7l4.8 6.3zM16.7 20h1.9L7.4 4H5.4z"/></svg></a></li>`);
+  }
+  if (BRAND.social.github) {
+    items.push(`<li><a href="${BRAND.social.github}" rel="noopener" aria-label="OjarisLabs on GitHub"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 00-3.16 19.49c.5.09.68-.22.68-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.11-1.47-1.11-1.47-.9-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.9 1.53 2.36 1.09 2.94.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.65 0 0 .84-.27 2.75 1.02a9.5 9.5 0 015 0c1.91-1.29 2.75-1.02 2.75-1.02.55 1.38.2 2.4.1 2.65.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.68-4.57 4.93.36.31.68.92.68 1.85v2.74c0 .27.18.58.69.48A10 10 0 0012 2z"/></svg></a></li>`);
+  }
+  if (!items.length) {
+    return `<p class="footer-contact"><a href="mailto:${BRAND.email}">${BRAND.email}</a></p>`;
+  }
+  return `
         <ul class="socials">
-          <li><a href="${BRAND.social.linkedin}" rel="noopener" aria-label="OjarisLabs on LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5A2.5 2.5 0 002.5 6a2.5 2.5 0 105 0 2.5 2.5 0 00-2.52-2.5zM3 9h4v12H3zM9 9h3.8v1.7h.05c.53-1 1.83-2.05 3.76-2.05C20.4 8.65 21 11 21 14v7h-4v-6.2c0-1.48-.03-3.38-2.06-3.38-2.06 0-2.38 1.6-2.38 3.27V21H9z"/></svg></a></li>
-          <li><a href="${BRAND.social.x}" rel="noopener" aria-label="OjarisLabs on X"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.9 2H22l-7.5 8.6L23 22h-6.8l-5.3-7-6.1 7H1.7l8-9.2L1 2h7l4.8 6.3zM16.7 20h1.9L7.4 4H5.4z"/></svg></a></li>
-          <li><a href="${BRAND.social.github}" rel="noopener" aria-label="OjarisLabs on GitHub"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 00-3.16 19.49c.5.09.68-.22.68-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.11-1.47-1.11-1.47-.9-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.9 1.53 2.36 1.09 2.94.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.65 0 0 .84-.27 2.75 1.02a9.5 9.5 0 015 0c1.91-1.29 2.75-1.02 2.75-1.02.55 1.38.2 2.4.1 2.65.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.68-4.57 4.93.36.31.68.92.68 1.85v2.74c0 .27.18.58.69.48A10 10 0 0012 2z"/></svg></a></li>
+          ${items.join("")}
         </ul>`;
+};
 
 export function footer(base) {
   const col = (title, links) =>

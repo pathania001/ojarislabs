@@ -2,6 +2,7 @@
    OjarisLabs — content data model (services, solutions, FAQs).
    Truthful, new-brand positioning. No fabricated clients/stats/history.
    ===================================================================== */
+import { SERVICE_EXTRAS } from "./service-extras.mjs";
 
 /* ---------- Homepage 8 service groups ---------- */
 export const SERVICE_GROUPS = [
@@ -114,22 +115,9 @@ export const SERVICES_FAQ = [
 
 /* ============================================================
    24 service landing pages (unique, service-specific content)
+   Process + why copy lives in service-extras.mjs and is merged below.
    ============================================================ */
-const DEFAULT_PROCESS = [
-  { icon: "search", no: "01", title: "Discover", text: "We learn your goals, constraints and success metrics." },
-  { icon: "brush", no: "02", title: "Design", text: "We shape the approach, architecture and experience." },
-  { icon: "code", no: "03", title: "Build", text: "We engineer in iterations with clear checkpoints." },
-  { icon: "check", no: "04", title: "Deliver & Support", text: "We launch, measure and keep improving." }
-];
-const DEFAULT_WHY = [
-  "Built by experienced technology professionals across web, software and digital platforms.",
-  "Business-aware engineering — decisions tied to outcomes, not just output.",
-  "Transparent communication and realistic scope.",
-  "Maintainable, well-documented work you can build on.",
-  "Flexible engagement, from a single project to ongoing partnership."
-];
-
-const S = (o) => ({ process: DEFAULT_PROCESS, why: DEFAULT_WHY, ...o });
+const S = (o) => ({ ...o });
 
 export const SERVICE_PAGES = [
   S({
@@ -154,7 +142,7 @@ export const SERVICE_PAGES = [
   S({
     slug: "wordpress-development", group: "web", icon: "web",
     title: "WordPress Development Services | OjarisLabs",
-    h1: "WordPress Development Built for Performance and Growth",
+    h1: "Custom WordPress Sites Your Team Can Actually Run",
     metaDescription: "Custom WordPress development — themes, ACF, WooCommerce, Elementor, plugin development, speed optimization, security and migration by OjarisLabs.",
     eyebrow: "WordPress Development",
     intro: "We build custom WordPress websites that are fast, secure and genuinely easy for your team to manage — from bespoke themes to WooCommerce stores and custom plugins.",
@@ -552,5 +540,11 @@ export const SERVICE_PAGES = [
     related: ["cloud-devops", "server-management", "wordpress-development", "seo-services"]
   })
 ];
+
+for (const s of SERVICE_PAGES) {
+  const extras = SERVICE_EXTRAS[s.slug];
+  if (!extras) throw new Error(`Missing SERVICE_EXTRAS for ${s.slug}`);
+  Object.assign(s, extras);
+}
 
 export const SERVICE_BY_SLUG = Object.fromEntries(SERVICE_PAGES.map((s) => [s.slug, s]));

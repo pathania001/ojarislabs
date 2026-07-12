@@ -19,7 +19,7 @@ OjarisLabs is a **new brand**. This audit records what was removed as unverified
 
 - **Contact email** `hello@ojarislabs.com` and **security email** `security@ojarislabs.com` — confirm mailboxes exist and are monitored. (`build/layout.mjs` → `BRAND`.)
 - **Phone number** — none published (was fake). Add a real number to the contact page + `BRAND` config once available.
-- **Social profiles** — LinkedIn / X / GitHub URLs in `build/layout.mjs` (`BRAND.social`). Confirm each profile exists before launch, or remove the icon.
+- **Social profiles** — LinkedIn / X / GitHub URLs previously listed in `build/layout.mjs` (`BRAND.social`) returned 404 / unverified during the 2026-07 audit and were removed from the footer and Organization `sameAs`. Re-add only after each profile is confirmed live.
 - **Production domain / `SITE_URL`** — currently the temporary staging domain in `build/layout.mjs`. Replace with the real domain and rebuild so canonicals/OG/sitemap are correct.
 - **Statistics** — intentionally none. Only introduce numbers that are genuinely verifiable.
 
