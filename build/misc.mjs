@@ -1,7 +1,7 @@
 /* =====================================================================
    OjarisLabs — legal pages, HTML sitemap, 404.
    ===================================================================== */
-import { SITE_URL, head, header, footer, icon, link, breadcrumbs, breadcrumbJsonLd } from "./layout.mjs";
+import { SITE_URL, head, header, footer, icon, link, breadcrumbs, breadcrumbJsonLd, webPageJsonLd } from "./layout.mjs";
 import { SERVICE_PAGES } from "./data.mjs";
 import { ARTICLES } from "./articles.mjs";
 
@@ -24,7 +24,10 @@ function legal({ slug, title, description, eyebrow, h1, lead, bodyHtml }) {
       <div class="container"><article class="prose">${bodyHtml}</article></div>
     </section>
   </main>`;
-  const jsonLd = [breadcrumbJsonLd([{ label: "Home", file: "" }, { label: h1, file: slug + ".html" }])];
+  const jsonLd = [
+    breadcrumbJsonLd([{ label: "Home", file: "" }, { label: h1, file: slug + ".html" }]),
+    webPageJsonLd({ path: slug + ".html", name: title, description })
+  ];
   return { file: slug + ".html", html: wrap(base, null, title, description, slug + ".html", jsonLd, main + "\n") };
 }
 
@@ -103,7 +106,10 @@ export function renderSitemapHtml() {
       </div>
     </section>
   </main>`;
-  return { file: "sitemap.html", html: wrap(base, null, "Sitemap | OjarisLabs", "Browse all OjarisLabs pages — services, solutions, resources and company information.", "sitemap.html", [], main + "\n") };
+  return { file: "sitemap.html", html: wrap(base, null, "Sitemap | OjarisLabs", "Browse all OjarisLabs pages — services, solutions, resources and company information.", "sitemap.html", [
+    breadcrumbJsonLd([{ label: "Home", file: "" }, { label: "Sitemap", file: "sitemap.html" }]),
+    webPageJsonLd({ path: "sitemap.html", name: "Sitemap | OjarisLabs", description: "Browse all OjarisLabs pages — services, solutions, resources and company information." })
+  ], main + "\n") };
 }
 
 export function render404() {
