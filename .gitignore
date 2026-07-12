@@ -5,3 +5,6 @@ npm-debug.log*
 dist/
 *.local
 .vscode/
+.env
+.env.*
+!.env.example

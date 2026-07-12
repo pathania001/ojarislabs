@@ -6,8 +6,10 @@
   "type": "module",
   "scripts": {
     "dev": "serve -l 3000 .",
+    "dev:server": "CONTACT_DRY_RUN=true node server/index.mjs",
     "prestart": "npm run build",
-    "start": "serve dist -l tcp://0.0.0.0:${PORT:-3000}",
+    "start": "node server/index.mjs",
+    "test:contact": "CONTACT_DRY_RUN=true node scripts/test-contact-api.mjs",
     "lint": "npm run lint:css && npm run lint:html",
     "lint:css": "stylelint \"css/**/*.css\"",
     "lint:html": "htmlhint \"**/*.html\"",
@@ -22,5 +24,8 @@
     "serve": "^14.2.4",
     "stylelint": "^16.10.0",
     "stylelint-config-standard": "^36.0.1"
+  },
+  "dependencies": {
+    "nodemailer": "^9.0.3"
   }
 }

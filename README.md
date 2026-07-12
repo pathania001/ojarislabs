@@ -22,19 +22,65 @@ robots.txt, sitemap.xml, 404.html
 ## Getting started
 
 ```bash
-npm install      # install dev tooling (serve + linters)
-npm run dev      # start local dev server at http://localhost:3000
+npm install      # install tooling + nodemailer
+npm run build    # generate static HTML into repo root + dist/
+npm run dev      # static-only preview at http://localhost:3000
+npm start        # production Node server (static dist/ + POST /api/contact)
+```
+
+### Contact form email (Hostinger)
+
+Production page: https://ojarislabs.com/contact.html  
+API endpoint: `POST /api/contact`  
+Health check: `GET /api/health`  
+Start command: `npm start` (runs `node server/index.mjs` after `prestart` build)  
+Build command: `npm run build`
+
+The server sends enquiries to **hello@ojarislabs.com** over Hostinger SMTP.
+
+Set these environment variables in the Hostinger Node.js panel (see `.env.example`):
+
+```
+HOST=0.0.0.0
+CONTACT_TO_EMAIL=hello@ojarislabs.com
+CONTACT_FROM_EMAIL=hello@ojarislabs.com
+SMTP_HOST=smtp.hostinger.com
+SMTP_PORT=465
+SMTP_SECURE=true
+SMTP_USER=hello@ojarislabs.com
+SMTP_PASS=<set securely in Hostinger — never commit>
+```
+
+`PORT` is provided by the Hostinger runtime when applicable; the app uses `process.env.PORT` with a local fallback of `3000`.
+
+Notes:
+
+- Port **465** uses implicit TLS/SSL → `SMTP_SECURE=true`.
+- **From** is the authenticated mailbox (`OjarisLabs Website <hello@ojarislabs.com>`).
+- **Reply-To** is the visitor’s email so mailbox “Reply” goes to them.
+- Do **not** put the visitor’s address in From (SPF/DMARC).
+- Never put `SMTP_PASS` in frontend JS, HTML, README, or Git.
+- Leave `CONTACT_DRY_RUN` unset/false in production. Use it only for local tests:
+
+```bash
+npm run build && CONTACT_DRY_RUN=true npm run dev:server
+npm run test:contact
 ```
 
 ## Scripts
 
 | Command | Description |
 | --- | --- |
-| `npm run dev` | Start the local dev server (clean URLs) at `http://localhost:3000`. |
+| `npm run dev` | Static-only local preview at `http://localhost:3000`. |
+| `npm start` | Production Node server: serves `dist/` + `POST /api/contact`. |
+| `npm run dev:server` | Node server with `CONTACT_DRY_RUN=true` (no real SMTP). |
+| `npm run test:contact` | Smoke-test the contact API locally. |
 | `npm run lint` | Run CSS (stylelint) and HTML (htmlhint) linters. |
 | `npm run lint:css` | Lint CSS only. |
 | `npm run lint:html` | Lint HTML only. |
-| `npm run build` | No-op — this is a static site; deploy the repo root as-is. |
+| `npm run build` | Generate site HTML into repo root and `dist/`. |
+| `npm run audit` | Site QA audit (links, SEO, empty pages). |
+| `npm run check:links` | Link + SEO subset check. |
 
 ## Pages
 
@@ -42,4 +88,4 @@ npm run dev      # start local dev server at http://localhost:3000
 
 ## Content requiring business verification
 
-Statistics, testimonials, case studies, milestone dates and contact details are **representative placeholders** and are marked in code comments. Replace them with approved, verified content before publishing. The contact form is wired to a simulated submit handler — connect it to a real endpoint (and anti-spam token) in `js/main.js`.
+Statistics, testimonials, case studies, milestone dates and contact details are **representative placeholders** and are marked in code comments. Replace them with approved, verified content before publishing. The contact form posts to `POST /api/contact` when the Node server is running with SMTP configured.
