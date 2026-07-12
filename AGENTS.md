@@ -11,7 +11,7 @@ OjarisLabs marketing website. Static, multi-page, **no framework and no build st
   - `build/data.mjs` — service groups, the 24 service landing pages, solutions, FAQs.
   - `build/articles.mjs` — resource article content.
   - `build/render.mjs` / `build/misc.mjs` — page renderers. `build/generate.mjs` — entrypoint.
-- **`SITE_URL` is in `build/layout.mjs`** and currently points at the temporary staging domain. Change it to the real production domain before launch and rebuild — otherwise canonicals/OG/sitemap will point at staging.
+- **`SITE_URL` is in `build/layout.mjs`** and must remain the production origin (`https://ojarislabs.com`) for canonicals, Open Graph URLs, JSON-LD and sitemap generation.
 - **Truthfulness is non-negotiable.** OjarisLabs is a NEW brand. Never add fabricated clients, testimonials, statistics, case-study metrics, company history/timeline, offices, phone numbers, awards or certifications. Team experience may be stated honestly ("built by experienced technology professionals"). See `CONTENT-AUDIT.md`.
 - **Run the site:** `npm run dev` (`serve` on `http://localhost:3000`). Static, no backend. `serve.json` sets `cleanUrls: false` + a `/`→`index.html` rewrite so the dev server mirrors Hostinger: `/services.html` serves directly, extensionless 404s unless `.htaccess` rewriting is active.
 - **Internal links are RELATIVE `.html` paths** with correct depth (`./x.html` at root, `../x.html` under `resources/`). Canonical / Open Graph / JSON-LD URLs stay ABSOLUTE via `SITE_URL`. The generator handles all of this.

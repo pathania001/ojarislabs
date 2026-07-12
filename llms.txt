@@ -13,13 +13,13 @@ OjarisLabs is a digital engineering and growth company providing web development
 - Cloud, DevOps, Server Management & Maintenance
 
 ## Important Pages
-- Home: https://grey-worm-168584.hostingersite.com/
-- Services: https://grey-worm-168584.hostingersite.com/services.html
-- Solutions: https://grey-worm-168584.hostingersite.com/solutions.html
-- About: https://grey-worm-168584.hostingersite.com/about.html
-- Resources: https://grey-worm-168584.hostingersite.com/resources.html
-- Contact: https://grey-worm-168584.hostingersite.com/contact.html
-- Sitemap: https://grey-worm-168584.hostingersite.com/sitemap.html
+- Home: https://ojarislabs.com/
+- Services: https://ojarislabs.com/services.html
+- Solutions: https://ojarislabs.com/solutions.html
+- About: https://ojarislabs.com/about.html
+- Resources: https://ojarislabs.com/resources.html
+- Contact: https://ojarislabs.com/contact.html
+- Sitemap: https://ojarislabs.com/sitemap.html
 
 ## Notes
 - OjarisLabs is a new brand; we do not publish fabricated client counts, case-study metrics or company history.

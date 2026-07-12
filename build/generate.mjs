@@ -1,9 +1,9 @@
 /* =====================================================================
-   OjarisLabs — build entrypoint. Renders all pages to static HTML at the
-   repository root, plus sitemap.xml, robots.txt and llms.txt.
+   OjarisLabs — build entrypoint. Renders committed static HTML at the
+   repository root and prepares a clean dist/ directory for Node hosting.
    Run: npm run build:site
    ===================================================================== */
-import { writeFileSync, mkdirSync } from "node:fs";
+import { cpSync, existsSync, mkdirSync, rmSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { SITE_URL } from "./layout.mjs";
 import { SERVICE_PAGES } from "./data.mjs";
@@ -15,10 +15,18 @@ import {
 import { renderLegalPages, renderSitemapHtml, render404 } from "./misc.mjs";
 
 const root = process.cwd();
+const dist = join(root, "dist");
 const write = (rel, html) => {
   const full = join(root, rel);
   mkdirSync(join(full, ".."), { recursive: true });
   writeFileSync(full, html.trimStart() + "\n");
+};
+const copyPublic = (rel) => {
+  const from = join(root, rel);
+  const to = join(dist, rel);
+  if (!existsSync(from)) return;
+  mkdirSync(join(to, ".."), { recursive: true });
+  cpSync(from, to, { recursive: true });
 };
 
 const written = [];
@@ -106,5 +114,11 @@ OjarisLabs is a digital engineering and growth company providing web development
 `
 );
 
+rmSync(dist, { recursive: true, force: true });
+mkdirSync(dist, { recursive: true });
+for (const rel of written) copyPublic(rel);
+for (const rel of ["assets", "css", "js", ".htaccess", "serve.json"]) copyPublic(rel);
+
 console.log(`Generated ${written.length} files:`);
 for (const w of written) console.log("  " + w);
+console.log("Prepared dist/ for production serving.");

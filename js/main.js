@@ -294,13 +294,13 @@
         return;
       }
 
-      // Simulated async submit — swap with real endpoint / anti-spam token later.
+      // No network request is made until a delivery endpoint is configured.
       if (submitBtn) submitBtn.classList.add("is-loading");
       setTimeout(() => {
         if (submitBtn) submitBtn.classList.remove("is-loading");
         if (status) {
           status.classList.add("success", "is-visible");
-          status.textContent = form.dataset.success || "Thanks! Your message has been received. We'll be in touch shortly.";
+          status.textContent = form.dataset.success || "Thanks — the form validated successfully. Please email hello@ojarislabs.com until direct form delivery is connected.";
         }
         form.reset();
       }, 1100);

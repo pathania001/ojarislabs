@@ -601,7 +601,7 @@ export function renderResources() {
             <h2 style="color:var(--text-on-dark)">Stay Ahead with <span class="gradient-text">OjarisLabs</span></h2>
             <p style="color:var(--text-on-dark-soft);margin-top:.5rem">Occasional, practical insights on building and growing digital products. No spam.</p>
           </div>
-          <form class="newsletter-form" data-validate data-success="You're subscribed! Watch your inbox for insights." novalidate>
+          <form class="newsletter-form" data-validate data-success="Thanks — this form is ready for email delivery once a backend is connected." novalidate>
             <div class="field" style="flex:1">
               <label for="news-email" class="visually-hidden">Email address</label>
               <input class="control" type="email" id="news-email" name="email" placeholder="Enter your email" autocomplete="email" required style="border-radius:var(--radius-pill);background:rgba(255,255,255,.05);color:#fff;border-color:var(--border-dark-strong)" />
@@ -729,7 +729,7 @@ export function renderContact() {
           <div class="reveal">
             ${eyebrow("Tell Us About Your Project")}
             <h2 style="margin-bottom:1.5rem">We're Here to Help You <span class="gradient-text">Succeed</span></h2>
-            <form class="form-card" id="contact-form" data-validate data-success="Thanks! Your message has been received. We'll get back to you within one business day." novalidate>
+            <form class="form-card" id="contact-form" data-validate data-success="Thanks — the form validated successfully. Please email hello@ojarislabs.com until direct form delivery is connected." novalidate>
               <div class="form-grid">
                 <div class="field"><label for="name">Name <span class="req" aria-hidden="true">*</span></label><input class="control" type="text" id="name" name="name" placeholder="Jane Doe" autocomplete="name" required /><span class="error-msg"></span></div>
                 <div class="field"><label for="email">Work Email <span class="req" aria-hidden="true">*</span></label><input class="control" type="email" id="email" name="email" placeholder="jane@company.com" autocomplete="email" required /><span class="error-msg"></span></div>
@@ -738,7 +738,7 @@ export function renderContact() {
                 <div class="field"><label for="service">Service Needed</label><select class="control" id="service" name="service"><option value="">Select a service</option>${services.map((s) => `<option>${s}</option>`).join("")}</select><span class="error-msg"></span></div>
                 <div class="field"><label for="budget">Budget Range</label><select class="control" id="budget" name="budget"><option value="">Select a budget range</option><option>Under $5k</option><option>$5k – $15k</option><option>$15k – $50k</option><option>$50k+</option><option>Not sure yet</option></select><span class="error-msg"></span></div>
                 <div class="field"><label for="timeline">Project Timeline</label><select class="control" id="timeline" name="timeline"><option value="">Select a timeline</option><option>ASAP</option><option>1–3 months</option><option>3–6 months</option><option>Just exploring</option></select><span class="error-msg"></span></div>
-                <div class="field"><label for="message-heading" class="visually-hidden">spacer</label><span aria-hidden="true"></span></div>
+                <div class="field" aria-hidden="true"></div>
                 <div class="field full"><label for="details">Project Details <span class="req" aria-hidden="true">*</span></label><textarea class="control" id="details" name="details" placeholder="Share your goals, timeline and any details that help us understand your project." required></textarea><span class="error-msg"></span></div>
                 <div class="field full"><label class="checkbox"><input type="checkbox" id="agree" name="agree" required /><span>I agree to the <a href="${base}privacy-policy.html" style="color:var(--oj-purple)">Privacy Policy</a> and <a href="${base}terms.html" style="color:var(--oj-purple)">Terms of Service</a>.</span></label><span class="error-msg"></span></div>
                 <div class="field full" aria-hidden="true" style="position:absolute;left:-9999px" hidden><label for="website-hp">Do not fill</label><input class="control" type="text" id="website-hp" name="website-hp" tabindex="-1" autocomplete="off" /></div>

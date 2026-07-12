@@ -1,6 +1,6 @@
 # AUDIT-BEFORE-FIX
 
-Audit of the **live deployed** OjarisLabs site (`https://grey-worm-168584.hostingersite.com/`) — an older build than the repository. Captured before the repair pass in this session. Screenshots: `qa/before-fix/`.
+Audit of the previously deployed OjarisLabs site before the repair pass in this session. Screenshots: `qa/before-fix/`.
 
 ## Key defects found on the live build
 

@@ -20,7 +20,7 @@ const root = process.cwd();
 const htmlFiles = [];
 (function walk(dir) {
   for (const entry of readdirSync(dir, { withFileTypes: true })) {
-    if (entry.name === "node_modules" || entry.name.startsWith(".git")) continue;
+    if (entry.name === "node_modules" || entry.name === "dist" || entry.name.startsWith(".git")) continue;
     const full = join(dir, entry.name);
     if (entry.isDirectory()) walk(full);
     else if (entry.name.endsWith(".html")) htmlFiles.push(full);
@@ -63,7 +63,8 @@ for (const file of htmlFiles) {
       continue;
     }
 
-    const [pathPart, frag] = raw.split("#");
+    const [pathAndQuery, frag] = raw.split("#");
+    const [pathPart] = pathAndQuery.split("?");
     let target = pathPart.startsWith("/")
       ? join(root, pathPart)
       : resolve(dirname(file), pathPart);

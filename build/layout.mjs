@@ -1,11 +1,30 @@
 /* =====================================================================
    OjarisLabs static site generator — shared layout, head, header, footer.
-   Emits plain static HTML (no runtime build on the host).
+   Emits plain static HTML for the production site.
    ===================================================================== */
+import { createHash } from "node:crypto";
+import { readFileSync } from "node:fs";
+import { join } from "node:path";
 
-// ⚠️ Change SITE_URL to the real production domain before launch.
-// Staging is temporary — do NOT let production canonicalize to it.
-export const SITE_URL = "https://grey-worm-168584.hostingersite.com";
+export const SITE_URL = "https://ojarislabs.com";
+const VERSIONED_ASSETS = [
+  "css/variables.css",
+  "css/base.css",
+  "css/components.css",
+  "css/animations.css",
+  "css/responsive.css",
+  "js/main.js"
+];
+const assetVersion = (() => {
+  try {
+    const hash = createHash("sha256");
+    for (const file of VERSIONED_ASSETS) hash.update(readFileSync(join(process.cwd(), file)));
+    return hash.digest("hex").slice(0, 12);
+  } catch {
+    return "1.0.0";
+  }
+})();
+const versioned = (base, file) => `${base}${file}?v=${assetVersion}`;
 
 export const BRAND = {
   name: "OjarisLabs",
@@ -107,11 +126,11 @@ export function head({ base, title, description, canonicalPath, ogType = "websit
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />${preload}
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="${base}css/variables.css" />
-  <link rel="stylesheet" href="${base}css/base.css" />
-  <link rel="stylesheet" href="${base}css/components.css" />
-  <link rel="stylesheet" href="${base}css/animations.css" />
-  <link rel="stylesheet" href="${base}css/responsive.css" />
+  <link rel="stylesheet" href="${versioned(base, "css/variables.css")}" />
+  <link rel="stylesheet" href="${versioned(base, "css/base.css")}" />
+  <link rel="stylesheet" href="${versioned(base, "css/components.css")}" />
+  <link rel="stylesheet" href="${versioned(base, "css/animations.css")}" />
+  <link rel="stylesheet" href="${versioned(base, "css/responsive.css")}" />
 ${ld}
 </head>
 <body${bodyClass ? ` class="${bodyClass}"` : ""}>
@@ -174,7 +193,7 @@ export function footer(base) {
       </div>
     </div>
   </footer>
-  <script src="${base}js/main.js" defer></script>
+  <script src="${versioned(base, "js/main.js")}" defer></script>
 </body>
 </html>`;
 }

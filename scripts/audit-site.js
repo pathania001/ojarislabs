@@ -12,10 +12,11 @@ import { readFileSync, readdirSync, existsSync, statSync } from "node:fs";
 import { join, dirname, resolve, relative } from "node:path";
 
 const root = process.cwd();
+const SITE_URL = "https://ojarislabs.com";
 const htmlFiles = [];
 (function walk(dir) {
   for (const e of readdirSync(dir, { withFileTypes: true })) {
-    if (e.name === "node_modules" || e.name.startsWith(".git")) continue;
+    if (e.name === "node_modules" || e.name === "dist" || e.name.startsWith(".git")) continue;
     const f = join(dir, e.name);
     if (e.isDirectory()) walk(f);
     else if (e.name.endsWith(".html")) htmlFiles.push(f);
@@ -54,7 +55,8 @@ for (const file of htmlFiles) {
     if (IGNORE.test(raw)) continue;
     linkCount++;
     if (raw.startsWith("#")) { if (!idsOf(file).has(raw.slice(1))) errors.push([rel, `MISSING ANCHOR ${raw}`]); continue; }
-    const [p, frag] = raw.split("#");
+    const [pathAndQuery, frag] = raw.split("#");
+    const [p] = pathAndQuery.split("?");
     let target = p.startsWith("/") ? join(root, p) : resolve(dirname(file), p);
     let ok = existsSync(target);
     if (ok && statSync(target).isDirectory()) { target = join(target, "index.html"); ok = existsSync(target); }
@@ -74,7 +76,30 @@ for (const file of htmlFiles) {
   if (!title) errors.push([rel, "MISSING TITLE"]); else (titles.get(title) || titles.set(title, []).get(title)).push(rel);
   const desc = (html.match(/<meta name="description" content="([^"]*)"/) || [])[1]?.trim();
   if (!desc) errors.push([rel, "MISSING META DESCRIPTION"]); else (descs.get(desc) || descs.set(desc, []).get(desc)).push(rel);
-  if (!/rel="canonical"/.test(html)) errors.push([rel, "MISSING CANONICAL"]);
+  const canonicals = [...html.matchAll(/<link\s+rel="canonical"\s+href="([^"]+)"/g)].map((m) => m[1]);
+  if (canonicals.length !== 1) errors.push([rel, `CANONICAL COUNT ${canonicals.length}`]);
+  else if (!canonicals[0].startsWith(SITE_URL + "/")) errors.push([rel, `NON-PRODUCTION CANONICAL ${canonicals[0]}`]);
+  else if (/[?#]/.test(canonicals[0])) errors.push([rel, `MALFORMED CANONICAL ${canonicals[0]}`]);
+  const requiredMeta = [
+    [/property="og:title"/, "MISSING OG TITLE"],
+    [/property="og:description"/, "MISSING OG DESCRIPTION"],
+    [/property="og:url"/, "MISSING OG URL"],
+    [/property="og:type"/, "MISSING OG TYPE"],
+    [/property="og:image"/, "MISSING OG IMAGE"],
+    [/name="twitter:card"/, "MISSING TWITTER CARD"],
+    [/name="twitter:title"/, "MISSING TWITTER TITLE"],
+    [/name="twitter:description"/, "MISSING TWITTER DESCRIPTION"],
+    [/name="viewport"/, "MISSING VIEWPORT"],
+    [/charset=/i, "MISSING CHARSET"],
+    [/rel="icon"/, "MISSING FAVICON"]
+  ];
+  for (const [re, label] of requiredMeta) if (!re.test(html)) errors.push([rel, label]);
+  for (const m of html.matchAll(/<script type="application\/ld\+json">\s*([\s\S]*?)\s*<\/script>/g)) {
+    try { JSON.parse(m[1]); } catch (err) { errors.push([rel, `INVALID JSON-LD: ${err.message}`]); }
+  }
+  const ids = [...html.matchAll(/\bid="([^"]+)"/g)].map((m) => m[1]);
+  const dupIds = ids.filter((id, i) => ids.indexOf(id) !== i);
+  if (dupIds.length) errors.push([rel, `DUPLICATE IDS: ${[...new Set(dupIds)].join(", ")}`]);
   const h1 = (html.match(/<h1[\s>]/g) || []).length;
   if (h1 === 0) errors.push([rel, "MISSING H1"]); else if (h1 > 1) errors.push([rel, `MULTIPLE H1 (${h1})`]);
 

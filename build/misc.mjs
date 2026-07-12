@@ -34,7 +34,7 @@ export function renderLegalPages() {
     legal({
       slug: "privacy-policy", title: "Privacy Policy | OjarisLabs", description: "How OjarisLabs collects, uses and protects your information.",
       eyebrow: "Legal", h1: "Privacy Policy", lead: "How we collect, use and protect your information.",
-      bodyHtml: `${note("This is a starting-point privacy policy. Review and finalize with qualified legal counsel before publishing.")}
+      bodyHtml: `${note("This page provides general privacy information for OjarisLabs. Review with qualified legal counsel for jurisdiction-specific requirements.")}
         <p>OjarisLabs ("we", "us") respects your privacy. This policy explains what information we collect and how we use it when you interact with our website and services.</p>
         <h2>Information We Collect</h2><ul><li>Contact details you provide (name, email, company, website) when you submit a form.</li><li>Project information you choose to share.</li><li>Basic, aggregated usage data to improve our website.</li></ul>
         <h2>How We Use Information</h2><ul><li>To respond to enquiries and provide requested services.</li><li>To improve our website and offerings.</li><li>To send updates you have opted into (unsubscribe anytime).</li></ul>
@@ -45,7 +45,7 @@ export function renderLegalPages() {
     legal({
       slug: "terms", title: "Terms of Service | OjarisLabs", description: "The terms that govern use of the OjarisLabs website and services.",
       eyebrow: "Legal", h1: "Terms of Service", lead: "The terms that govern your use of our website and services.",
-      bodyHtml: `${note("This is a starting-point terms of service. Review and finalize with qualified legal counsel before publishing.")}
+      bodyHtml: `${note("These terms provide general website terms for OjarisLabs. Review with qualified legal counsel for jurisdiction-specific requirements.")}
         <p>By accessing the OjarisLabs website, you agree to these terms. If you do not agree, please do not use the site.</p>
         <h2>Use of the Site</h2><ul><li>Use the site lawfully and do not disrupt its operation.</li><li>Content is provided for general information and may change without notice.</li></ul>
         <h2>Intellectual Property</h2><p>Branding, content and design on this site are the property of OjarisLabs unless otherwise stated.</p>

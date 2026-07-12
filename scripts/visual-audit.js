@@ -4,7 +4,7 @@
    Install once: npm i -D playwright && npx playwright install chromium
    Run: node scripts/visual-audit.js  (dev server must be running on :3000)
    For every public page, waits for fonts + network idle, captures screenshots
-   at 1440/1280/1024/768/390, and flags blank/black pages, horizontal overflow,
+   at production QA desktop/tablet/mobile sizes, and flags blank/black pages, horizontal overflow,
    console errors and failed requests. Saves to qa/after-fix/ and writes
    VISUAL-AUDIT.md with PASS/WARNING/FAIL per page.
    ===================================================================== */
@@ -25,11 +25,14 @@ const pages = readdirSync(root).filter((f) => f.endsWith(".html") && f !== "404.
 try { for (const f of readdirSync(join(root, "resources"))) if (f.endsWith(".html")) pages.push("/resources/" + f); } catch {}
 
 const viewports = [
+  { name: "1920", width: 1920, height: 1080 },
   { name: "1440", width: 1440, height: 900 },
   { name: "1280", width: 1280, height: 800 },
   { name: "1024", width: 1024, height: 768 },
   { name: "768", width: 768, height: 1024 },
-  { name: "390", width: 390, height: 844 }
+  { name: "430", width: 430, height: 932 },
+  { name: "390", width: 390, height: 844 },
+  { name: "375", width: 375, height: 812 }
 ];
 const shotDir = "qa/after-fix";
 mkdirSync(join(root, shotDir), { recursive: true });
