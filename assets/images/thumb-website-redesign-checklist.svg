@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 225" role="img" aria-label="Website redesign" fill="none">
+  <defs><linearGradient id="t4" x1="0" y1="0" x2="400" y2="0" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#FF8A00"/><stop offset="1" stop-color="#8B3DFF"/></linearGradient></defs>
+  <rect width="400" height="225" fill="#050B1A"/>
+  <!-- before (dim) -->
+  <g stroke="#3A4763" stroke-width="2.5" fill="none" opacity="0.8">
+    <rect x="40" y="56" width="120" height="112" rx="10"/>
+    <path d="M56 84 h60 M56 104 h88 M56 124 h70 M56 144 h50" stroke-linecap="round"/>
+  </g>
+  <!-- arrow -->
+  <path d="M176 112 h48" stroke="url(#t4)" stroke-width="3" stroke-linecap="round"/>
+  <path d="M214 100 l14 12 -14 12" stroke="url(#t4)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <!-- after (bright) -->
+  <g fill="none">
+    <rect x="240" y="56" width="120" height="112" rx="10" stroke="url(#t4)" stroke-width="2.5"/>
+    <rect x="256" y="72" width="88" height="30" rx="6" fill="#FF8A00" opacity="0.25"/>
+    <rect x="256" y="112" width="40" height="40" rx="6" fill="#8B3DFF" opacity="0.35"/>
+    <path d="M304 118 h40 M304 132 h30 M304 146 h36" stroke="#FFFFFF" stroke-opacity="0.5" stroke-width="2.5" stroke-linecap="round"/>
+  </g>
+</svg>

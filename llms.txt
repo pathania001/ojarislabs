@@ -1,0 +1,28 @@
+# OjarisLabs
+
+OjarisLabs is a digital engineering and growth company providing web development, custom software, AI automation, eCommerce, mobile app development, UI/UX design, SEO, cloud and technical support services. OjarisLabs is a new brand built by experienced technology professionals.
+
+## Core Services
+- Web Development (WordPress, WooCommerce, Webflow, Squarespace, custom)
+- Software & SaaS Development (PHP, Laravel, JavaScript, APIs)
+- eCommerce (Shopify, WooCommerce, custom)
+- AI Integration & Automation (assistants, workflow & CRM automation, GoHighLevel)
+- Mobile App Development (React Native, Flutter, iOS, Android)
+- UI/UX & Creative Design
+- SEO, Technical SEO & AI Search Optimization
+- Cloud, DevOps, Server Management & Maintenance
+
+## Important Pages
+- Home: https://grey-worm-168584.hostingersite.com/
+- Services: https://grey-worm-168584.hostingersite.com/services.html
+- Solutions: https://grey-worm-168584.hostingersite.com/solutions.html
+- About: https://grey-worm-168584.hostingersite.com/about.html
+- Resources: https://grey-worm-168584.hostingersite.com/resources.html
+- Contact: https://grey-worm-168584.hostingersite.com/contact.html
+- Sitemap: https://grey-worm-168584.hostingersite.com/sitemap.html
+
+## Notes
+- OjarisLabs is a new brand; we do not publish fabricated client counts, case-study metrics or company history.
+- Remote-first delivery, working with businesses across locations and time zones.
+- Contact: hello@ojarislabs.com
+

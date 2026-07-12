@@ -1,0 +1,25 @@
+{
+  "name": "ojarislabs-website",
+  "version": "1.0.0",
+  "description": "OjarisLabs — production-ready multi-page marketing website (semantic HTML5, modern CSS, vanilla JS).",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "serve -l 3000 .",
+    "start": "serve -l 3000 .",
+    "lint": "npm run lint:css && npm run lint:html",
+    "lint:css": "stylelint \"css/**/*.css\"",
+    "lint:html": "htmlhint \"**/*.html\"",
+    "check:links": "node scripts/check-links.js",
+    "audit": "node scripts/audit-site.js",
+    "visual:audit": "node scripts/visual-audit.js",
+    "build:site": "node build/generate.mjs",
+    "build": "npm run build:site"
+  },
+  "devDependencies": {
+    "htmlhint": "^1.1.4",
+    "serve": "^14.2.4",
+    "stylelint": "^16.10.0",
+    "stylelint-config-standard": "^36.0.1"
+  }
+}

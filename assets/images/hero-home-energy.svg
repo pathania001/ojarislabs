@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 560" role="img" aria-label="OjarisLabs intelligent energy orbital system" fill="none">
+  <defs>
+    <linearGradient id="heRing" x1="90" y1="430" x2="510" y2="130" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FF8A00"/><stop offset=".28" stop-color="#FF5A4F"/><stop offset=".52" stop-color="#F72585"/><stop offset=".76" stop-color="#8B5CF6"/><stop offset="1" stop-color="#168BFF"/>
+    </linearGradient>
+    <linearGradient id="heRing2" x1="120" y1="150" x2="500" y2="420" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#168BFF"/><stop offset="1" stop-color="#8B5CF6"/>
+    </linearGradient>
+    <radialGradient id="heGlow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#8B5CF6" stop-opacity="0.5"/><stop offset="0.45" stop-color="#168BFF" stop-opacity="0.2"/><stop offset="1" stop-color="#030817" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="heCore" cx="0.42" cy="0.38" r="0.6">
+      <stop offset="0" stop-color="#FFE8CC"/><stop offset="0.35" stop-color="#FF8A00"/><stop offset="0.75" stop-color="#F72585"/><stop offset="1" stop-color="#8B5CF6"/>
+    </radialGradient>
+    <filter id="heBlur" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="9"/></filter>
+    <filter id="heSoft" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="4"/></filter>
+  </defs>
+
+  <circle cx="300" cy="285" r="260" fill="url(#heGlow)"/>
+
+  <!-- back orbit -->
+  <g transform="rotate(-24 300 285)">
+    <ellipse cx="300" cy="285" rx="240" ry="86" stroke="url(#heRing2)" stroke-width="2" opacity="0.4"/>
+  </g>
+
+  <!-- core sphere -->
+  <circle cx="300" cy="285" r="96" fill="url(#heCore)" filter="url(#heBlur)" opacity="0.55"/>
+  <circle cx="300" cy="285" r="72" fill="url(#heCore)"/>
+  <circle cx="300" cy="285" r="72" stroke="#FFFFFF" stroke-opacity="0.25" stroke-width="1.5"/>
+  <ellipse cx="278" cy="262" rx="26" ry="18" fill="#FFFFFF" opacity="0.35" filter="url(#heSoft)"/>
+
+  <!-- main energy ring (front) -->
+  <g transform="rotate(-24 300 285)">
+    <path d="M60 285 A240 86 0 0 1 540 285" stroke="url(#heRing)" stroke-width="16" stroke-linecap="round" filter="url(#heSoft)"/>
+    <path d="M540 285 A240 86 0 0 1 60 285" stroke="url(#heRing)" stroke-width="7" stroke-linecap="round" opacity="0.55"/>
+    <!-- comet head -->
+    <circle cx="540" cy="285" r="14" fill="#FF8A00" filter="url(#heSoft)"/>
+    <circle cx="540" cy="285" r="6" fill="#FFE8CC"/>
+  </g>
+
+  <!-- energy streaks -->
+  <g stroke="url(#heRing)" stroke-width="3" stroke-linecap="round" opacity="0.6" fill="none">
+    <path d="M150 150 C 210 190, 240 210, 250 230"/>
+    <path d="M470 410 C 410 375, 380 355, 360 340"/>
+  </g>
+
+  <!-- particles -->
+  <g fill="#FFFFFF">
+    <circle cx="150" cy="120" r="2.6" opacity="0.8"/>
+    <circle cx="500" cy="150" r="2.2" opacity="0.6"/>
+    <circle cx="120" cy="360" r="2" opacity="0.6"/>
+    <circle cx="470" cy="440" r="2.4" opacity="0.7"/>
+    <circle cx="360" cy="90" r="1.8" opacity="0.6"/>
+  </g>
+  <g fill="#168BFF">
+    <circle cx="190" cy="430" r="3" opacity="0.7"/>
+    <circle cx="430" cy="120" r="2.6" opacity="0.6"/>
+  </g>
+</svg>

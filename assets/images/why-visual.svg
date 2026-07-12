@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" role="img" aria-label="Abstract digital engineering interface" fill="none">
+  <defs>
+    <linearGradient id="wvG" x1="40" y1="360" x2="360" y2="40" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FF8A00"/><stop offset=".4" stop-color="#F72585"/><stop offset=".72" stop-color="#8B5CF6"/><stop offset="1" stop-color="#168BFF"/>
+    </linearGradient>
+    <radialGradient id="wvGlow" cx="0.55" cy="0.45" r="0.55">
+      <stop offset="0" stop-color="#8B5CF6" stop-opacity="0.45"/><stop offset="1" stop-color="#030817" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <circle cx="210" cy="185" r="185" fill="url(#wvGlow)"/>
+  <!-- back panel -->
+  <g transform="rotate(-8 200 200)">
+    <rect x="70" y="70" width="230" height="150" rx="16" fill="#0C1428" stroke="url(#wvG)" stroke-width="2"/>
+    <rect x="88" y="92" width="80" height="10" rx="5" fill="#8B5CF6"/>
+    <rect x="88" y="112" width="150" height="7" rx="3.5" fill="#FFFFFF" opacity="0.18"/>
+    <rect x="88" y="128" width="120" height="7" rx="3.5" fill="#FFFFFF" opacity="0.14"/>
+    <rect x="88" y="156" width="60" height="46" rx="8" fill="#168BFF" opacity="0.22"/>
+    <rect x="158" y="156" width="60" height="46" rx="8" fill="#F72585" opacity="0.22"/>
+    <rect x="228" y="156" width="52" height="46" rx="8" fill="#FF8A00" opacity="0.22"/>
+  </g>
+  <!-- front floating card -->
+  <g transform="rotate(6 250 260)">
+    <rect x="180" y="210" width="170" height="120" rx="16" fill="#0C1428" stroke="url(#wvG)" stroke-width="2"/>
+    <path d="M202 250 l40 -26 40 26 40 -26" stroke="url(#wvG)" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M202 288 h126 M202 306 h90" stroke="#FFFFFF" stroke-opacity="0.35" stroke-width="3" stroke-linecap="round"/>
+  </g>
+  <!-- node accent -->
+  <circle cx="120" cy="300" r="30" stroke="url(#wvG)" stroke-width="5" fill="#030817"/>
+  <path d="M108 300 l8 8 16 -18" stroke="url(#wvG)" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <g fill="#FFFFFF" opacity="0.6"><circle cx="60" cy="120" r="2.4"/><circle cx="350" cy="90" r="2"/><circle cx="360" cy="330" r="2.2"/></g>
+</svg>

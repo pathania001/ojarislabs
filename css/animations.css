@@ -1,0 +1,69 @@
+/* =====================================================================
+   OjarisLabs — Animations
+   Scroll reveal, hero entrance, floating symbol, spinner.
+   Respects prefers-reduced-motion.
+   ===================================================================== */
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+@keyframes floatY {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-14px); }
+}
+
+@keyframes pulseGlow {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Scroll reveal — PROGRESSIVE ENHANCEMENT.
+   Content is fully visible by default. main.js adds the `js` class to <html>
+   ONLY after the IntersectionObserver is set up (inside try/catch), so the
+   hide-then-reveal animation can never leave content stuck invisible. If JS
+   fails, doesn't load, or is disabled, `js` is never added and nothing hides. */
+.reveal {
+  opacity: 1;
+  transform: none;
+  transition: opacity 0.6s var(--ease-out), transform 0.6s var(--ease-out);
+}
+.js .reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  will-change: opacity, transform;
+}
+.js .reveal.is-visible { opacity: 1; transform: none; }
+
+/* stagger via inline --i or nth-child */
+.js .reveal[style*="--i"] { transition-delay: calc(var(--i) * 80ms); }
+
+/* Hero entrance (plays on load, JS-gated so content shows without JS) */
+.js .hero-animate > * { opacity: 0; animation: fadeUp 0.7s var(--ease-out) forwards; }
+.hero-animate > *:nth-child(1) { animation-delay: 0.05s; }
+.hero-animate > *:nth-child(2) { animation-delay: 0.15s; }
+.hero-animate > *:nth-child(3) { animation-delay: 0.25s; }
+.hero-animate > *:nth-child(4) { animation-delay: 0.35s; }
+.hero-animate > *:nth-child(5) { animation-delay: 0.45s; }
+.hero-animate > *:nth-child(6) { animation-delay: 0.55s; }
+
+.hero-visual img {
+  animation: floatY 7s ease-in-out infinite;
+}
+
+.btn--primary::after { content: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+  .reveal { opacity: 1 !important; transform: none !important; }
+  .hero-animate > * { opacity: 1 !important; }
+  .hero-visual img { animation: none !important; }
+}

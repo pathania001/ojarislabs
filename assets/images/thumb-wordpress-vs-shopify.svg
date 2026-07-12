@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 225" role="img" aria-label="WordPress vs Shopify" fill="none">
+  <defs><linearGradient id="t2" x1="0" y1="0" x2="400" y2="225" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#168BFF"/><stop offset="1" stop-color="#8B3DFF"/></linearGradient></defs>
+  <rect width="400" height="225" fill="#050B1A"/>
+  <path d="M200 20 V205" stroke="#1A2740" stroke-width="2" stroke-dasharray="6 8"/>
+  <!-- left: CMS/content -->
+  <g stroke="#168BFF" stroke-width="2.5" fill="none">
+    <rect x="46" y="62" width="120" height="100" rx="10"/>
+    <path d="M64 88 H148 M64 106 H130 M64 124 H140" stroke-linecap="round"/>
+  </g>
+  <circle cx="106" cy="48" r="10" fill="#168BFF"/>
+  <!-- right: commerce -->
+  <g stroke="#F72585" stroke-width="2.5" fill="none">
+    <rect x="234" y="62" width="120" height="100" rx="10"/>
+    <path d="M252 92 h84 l-10 44 h-64z" stroke-linejoin="round"/>
+    <circle cx="272" cy="150" r="5"/><circle cx="316" cy="150" r="5"/>
+  </g>
+  <circle cx="294" cy="48" r="10" fill="#F72585"/>
+  <rect x="176" y="98" width="48" height="30" rx="8" fill="url(#t2)"/>
+</svg>

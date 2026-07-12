@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 225" role="img" aria-label="Custom software vs SaaS" fill="none">
+  <defs><linearGradient id="t6" x1="0" y1="0" x2="400" y2="0" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#8B3DFF"/><stop offset="1" stop-color="#00C9D8"/></linearGradient></defs>
+  <rect width="400" height="225" fill="#050B1A"/>
+  <path d="M200 20 V205" stroke="#1A2740" stroke-width="2" stroke-dasharray="6 8"/>
+  <!-- custom: modular interlocking blocks -->
+  <g stroke="#8B3DFF" stroke-width="2.5" fill="none">
+    <rect x="52" y="60" width="46" height="46" rx="8"/>
+    <rect x="104" y="60" width="46" height="46" rx="8"/>
+    <rect x="78" y="112" width="46" height="46" rx="8"/>
+    <path d="M98 83 h6 M124 106 v6" stroke-linecap="round"/>
+  </g>
+  <circle cx="86" cy="176" r="6" fill="#8B3DFF"/><circle cx="120" cy="176" r="6" fill="#F72585"/>
+  <!-- saas: standardized cloud platform -->
+  <g stroke="#00C9D8" stroke-width="2.5" fill="none">
+    <path d="M256 130 a26 26 0 0 1 0 -52 32 32 0 0 1 61 -10 22 22 0 0 1 5 62 z" stroke-linejoin="round"/>
+    <rect x="262" y="140" width="86" height="14" rx="7"/>
+    <rect x="262" y="160" width="60" height="14" rx="7"/>
+  </g>
+  <circle cx="300" cy="60" r="8" fill="url(#t6)"/>
+</svg>

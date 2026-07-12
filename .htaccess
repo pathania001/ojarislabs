@@ -1,0 +1,30 @@
+# OjarisLabs — static hosting config (Apache / LiteSpeed, e.g. Hostinger)
+
+DirectoryIndex index.html
+
+# Friendly 404
+ErrorDocument 404 /404.html
+
+# OPTIONAL clean URLs: allow /services to serve services.html.
+# The site already links to .html files directly, so this is a progressive
+# enhancement — the site works correctly without it.
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  # Do not rewrite existing files or directories
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  # If "<name>.html" exists, serve it for "/<name>"
+  RewriteCond %{DOCUMENT_ROOT}/$1.html -f
+  RewriteRule ^([^/]+)/?$ $1.html [L]
+</IfModule>
+
+# Long-cache static assets (safe: filenames are stable)
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType text/css "access plus 1 year"
+  ExpiresByType application/javascript "access plus 1 year"
+  ExpiresByType image/svg+xml "access plus 1 year"
+  ExpiresByType image/webp "access plus 1 year"
+  ExpiresByType image/png "access plus 1 year"
+  ExpiresByType image/jpeg "access plus 1 year"
+</IfModule>
