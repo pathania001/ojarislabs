@@ -77,7 +77,7 @@ export const NAV = [
 /* base = relative prefix to site root, e.g. "./" (root pages) or "../" (nested) */
 export const link = (base, file) => (file === "" ? base : base + file);
 
-export function head({ base, title, description, canonicalPath, ogType = "website", extraJsonLd = [], preloadImage = "assets/images/hero-orbital.svg" }) {
+export function head({ base, title, description, canonicalPath, ogType = "website", extraJsonLd = [], preloadImage = "assets/images/hero-orbital.svg", bodyClass = "" }) {
   const canonical = canonicalPath === "" ? SITE_URL + "/" : SITE_URL + "/" + canonicalPath;
   const ogImage = SITE_URL + "/assets/brand/og-default.jpg";
   const preload = preloadImage ? `\n  <link rel="preload" as="image" href="${base}${preloadImage}" />` : "";
@@ -114,7 +114,7 @@ export function head({ base, title, description, canonicalPath, ogType = "websit
   <link rel="stylesheet" href="${base}css/responsive.css" />
 ${ld}
 </head>
-<body>
+<body${bodyClass ? ` class="${bodyClass}"` : ""}>
   <a class="skip-link" href="#main">Skip to content</a>`;
 }
 

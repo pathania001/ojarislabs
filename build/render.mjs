@@ -16,8 +16,8 @@ const cyc = (i) => ICO_COLORS[i % ICO_COLORS.length];
 // Fixed accent per service group (brand-consistent, distinct per card)
 const ACCENT = { web: "ico-orange", software: "ico-purple", ecommerce: "ico-pink", ai: "ico-blue", mobile: "ico-cyan", design: "ico-pink", seo: "ico-cyan", cloud: "ico-blue" };
 
-const page = ({ base, activeKey, title, description, canonicalPath, jsonLd = [], main, ogType = "website", preloadImage }) =>
-  head({ base, title, description, canonicalPath, ogType, extraJsonLd: jsonLd, preloadImage }) + header(base, activeKey) + main + footer(base);
+const page = ({ base, activeKey, title, description, canonicalPath, jsonLd = [], main, ogType = "website", preloadImage, bodyClass }) =>
+  head({ base, title, description, canonicalPath, ogType, extraJsonLd: jsonLd, preloadImage, bodyClass }) + header(base, activeKey) + main + footer(base);
 
 const eyebrow = (t, center) => `<p class="eyebrow${center ? " eyebrow--center" : ""}">${t}</p>`;
 const capStrip = () => `
@@ -40,27 +40,35 @@ const stackStrip = () => `
 /* ============================ HOME ============================ */
 export function renderHome() {
   const base = "./";
-  const caps = [
-    { icon: "code", t: "Web & Software" },
-    { icon: "ai", t: "AI & Automation" },
-    { icon: "cart", t: "eCommerce" },
-    { icon: "growth", t: "Digital Growth" }
+  const services12 = [
+    { t: "Web Development", d: "High-performance websites built with modern technologies and clean user experiences.", icon: "web", ac: "ico-orange", slug: "web-development.html" },
+    { t: "WordPress &amp; CMS", d: "Custom WordPress and CMS solutions that are flexible, scalable and easy to manage.", icon: "doc", ac: "ico-blue", slug: "wordpress-development.html" },
+    { t: "Shopify &amp; eCommerce", d: "Powerful online stores designed to improve customer experience and support growth.", icon: "cart", ac: "ico-pink", slug: "shopify-development.html" },
+    { t: "Custom Software", d: "Tailored software solutions built around real business requirements and workflows.", icon: "code", ac: "ico-purple", slug: "custom-software-development.html" },
+    { t: "AI Development", d: "Practical AI solutions and integrations that automate, assist and enhance operations.", icon: "ai", ac: "ico-blue", slug: "ai-development.html" },
+    { t: "Mobile App Development", d: "Modern mobile experiences for iOS, Android and cross-platform products.", icon: "mobile", ac: "ico-cyan", slug: "mobile-app-development.html" },
+    { t: "UI/UX &amp; Product Design", d: "Thoughtful digital experiences designed around users, usability and business goals.", icon: "brush", ac: "ico-pink", slug: "ui-ux-design.html" },
+    { t: "SEO &amp; Digital Growth", d: "Technical SEO and growth strategies designed to improve visibility and conversions.", icon: "growth", ac: "ico-cyan", slug: "seo-services.html" },
+    { t: "Cloud &amp; DevOps", d: "Reliable cloud infrastructure, deployment workflows, hosting and server management.", icon: "cloud", ac: "ico-blue", slug: "cloud-devops.html" },
+    { t: "API &amp; Integrations", d: "Seamless connections between platforms, applications, APIs and business systems.", icon: "plug", ac: "ico-purple", slug: "custom-software-development.html" },
+    { t: "Automation Solutions", d: "Workflow automation that reduces repetitive work and improves operational efficiency.", icon: "gear", ac: "ico-orange", slug: "ai-automation.html" },
+    { t: "GoHighLevel &amp; CRM", d: "CRM implementation and automation designed to convert, nurture and retain customers.", icon: "chat", ac: "ico-pink", slug: "gohighlevel-automation.html" }
   ];
-  const serviceCards = SERVICE_GROUPS.map(
-    (g, i) => `<article class="card reveal" style="--i:${i % 3}">
-            <span class="card-icon ${ACCENT[g.key]}">${icon(g.icon)}</span>
-            <h3>${g.title}</h3>
-            <p>${g.desc}</p>
-            <div class="card-foot">${arrowLink(base, g.slug, "Explore")}</div>
+  const serviceCards = services12.map(
+    (g, i) => `<article class="card reveal" style="--i:${i % 4}">
+            <span class="card-icon ${g.ac}">${icon(g.icon)}</span>
+            <h3>${g.t}</h3>
+            <p>${g.d}</p>
+            <div class="card-foot">${arrowLink(base, g.slug, "Learn more")}</div>
           </article>`
   ).join("\n          ");
-  // 05 — Digital Capability Engine (connected journey)
-  const engine = [
-    { no: "01", icon: "search", t: "Discover", d: "Understand the opportunity." },
-    { no: "02", icon: "brush", t: "Design", d: "Shape the experience." },
-    { no: "03", icon: "code", t: "Build", d: "Engineer the product." },
-    { no: "04", icon: "plug", t: "Connect", d: "Integrate systems and intelligence." },
-    { no: "05", icon: "growth", t: "Grow", d: "Optimize what comes next." }
+  // 05 — Our Process
+  const processSteps = [
+    { no: "01", icon: "search", t: "Understand", d: "We learn your goals, users and challenges." },
+    { no: "02", icon: "compass", t: "Architect", d: "We define the right solution, technology and roadmap." },
+    { no: "03", icon: "brush", t: "Create", d: "We design and build with quality and precision." },
+    { no: "04", icon: "shield", t: "Validate", d: "We test, refine and ensure performance at every step." },
+    { no: "05", icon: "growth", t: "Evolve", d: "We launch, improve and help the solution scale." }
   ];
   // 06 — Ojas principles (orbital diamond positions on desktop)
   const principles = [
@@ -69,14 +77,6 @@ export function renderHome() {
     { icon: "spark", t: "Innovation", d: "Better ways to build and solve.", col: 3, row: 2, ac: "ico-purple" },
     { icon: "growth", t: "Growth", d: "Technology connected to progress.", col: 1, row: 3, ac: "ico-cyan" },
     { icon: "infinity", t: "Transformation", d: "Ideas turned into meaningful outcomes.", col: 3, row: 3, ac: "ico-blue" }
-  ];
-  // 07 — How we turn ideas into impact
-  const steps = [
-    { no: "01", t: "Understand", d: "We start with the problem, the users and the business outcome." },
-    { no: "02", t: "Architect", d: "We define the right experience, technology and delivery approach." },
-    { no: "03", t: "Create", d: "Design and engineering move together to build the solution." },
-    { no: "04", t: "Validate", d: "We test performance, usability and technical quality." },
-    { no: "05", t: "Evolve", d: "After launch, we improve, optimize and scale." }
   ];
   // 08 — Why OjarisLabs (bento)
   const bento = [
@@ -96,35 +96,32 @@ export function renderHome() {
   ];
   const main = `
   <main id="main">
-    <section class="hero hero-with-caps">
+    <section class="hero">
       <div class="container container--wide">
         <div class="hero-grid">
           <div class="hero-copy hero-animate">
-            ${eyebrow("Digital Engineering &amp; Growth")}
+            ${eyebrow("Intelligent Energy. Limitless Impact.")}
             <h1 class="hero-title">Build Smarter.<br />Move Faster.<br /><span class="gradient-text">Grow Further.</span></h1>
-            <p class="lead">OjarisLabs brings together software engineering, web development, AI, automation, eCommerce, design and digital growth to turn ambitious ideas into high-performing digital products.</p>
+            <p class="lead">OjarisLabs is a digital engineering and growth partner building modern web, software, AI and automation solutions that help businesses scale with confidence.</p>
             <div class="hero-actions">
               <a class="btn btn--primary btn--lg" href="${base}contact.html">Start a Project ${icon("arrow", "arrow")}</a>
-              <a class="btn btn--outline-light btn--lg" href="${base}services.html">Explore Our Services</a>
+              <a class="btn btn--outline-light btn--lg" href="${base}services.html">Explore Services</a>
             </div>
           </div>
-          <div class="hero-visual">
-            <div class="capabilities" aria-label="Core capabilities">
-              <img src="${base}assets/images/hero-orbital.svg" width="520" height="520" fetchpriority="high" decoding="async" alt="OjarisLabs orbital energy symbol representing intelligent, connected technology" style="grid-column:1/-1;margin-bottom:.5rem" />
-              ${caps.map((c) => `<div class="capability"><span class="ico">${icon(c.icon)}</span><div><h3>${c.t}</h3></div></div>`).join("\n              ")}
-            </div>
-          </div>
+          <div class="hero-visual"><img src="${base}assets/images/hero-home-energy.svg" width="600" height="560" fetchpriority="high" decoding="async" alt="OjarisLabs intelligent energy orbital system" /></div>
         </div>
       </div>
     </section>
 
     ${stackStrip()}
 
+    <!-- 04 — Services -->
     <section class="section bg-white" style="padding-top:0">
       <div class="container">
-        <div class="section-head">
-          ${eyebrow("What We Do")}
-          <h2>Technology that <span class="gradient-text">transforms.</span><br />Solutions that <span class="gradient-text">scale.</span></h2>
+        <div class="section-head section-head--center">
+          ${eyebrow("What We Do", true)}
+          <h2>End-to-End Digital Solutions<br />for <span class="gradient-text">Modern Businesses.</span></h2>
+          <p>From strategy and design to engineering, automation and growth, we bring the capabilities businesses need to build, improve and scale in a digital-first world.</p>
         </div>
         <div class="card-grid cols-4">
           ${serviceCards}
@@ -133,17 +130,17 @@ export function renderHome() {
       </div>
     </section>
 
-    <!-- 05 — Digital Capability Engine -->
+    <!-- 05 — Our Process -->
     <section class="section bg-light">
       <div class="container">
         <div class="section-head section-head--center">
-          ${eyebrow("One Partner. The Full Digital Journey.", true)}
+          ${eyebrow("Our Process", true)}
           <h2>From Idea to Impact.<br /><span class="gradient-text">Everything Connected.</span></h2>
-          <p>Great digital products are rarely built by one discipline alone. OjarisLabs brings strategy, design, engineering, automation, infrastructure and growth together so every part of the digital journey works as one connected system.</p>
+          <p>A clear, collaborative process that turns ideas into scalable digital solutions.</p>
         </div>
         <div class="journey">
           <span class="journey-line" aria-hidden="true"></span>
-          ${engine.map((s, i) => `<div class="journey-step reveal" style="--i:${i}"><div class="jnode"><span class="jno">${s.no}</span>${icon(s.icon)}</div><h3>${s.t}</h3><p>${s.d}</p></div>`).join("\n          ")}
+          ${processSteps.map((s, i) => `<div class="journey-step reveal" style="--i:${i}"><div class="jnode"><span class="jno">${s.no}</span>${icon(s.icon)}</div><h3>${s.t}</h3><p>${s.d}</p></div>`).join("\n          ")}
         </div>
       </div>
     </section>
@@ -156,7 +153,8 @@ export function renderHome() {
             ${eyebrow("The Idea Behind the Name")}
             <h2>The Ojas in<br /><span class="gradient-text">Everything We Build.</span></h2>
             <p style="margin-top:1.1rem">Ojas represents intelligent energy — the force behind clarity, momentum and meaningful progress.</p>
-            <p style="margin-top:.9rem">At OjarisLabs, that idea shapes how we approach technology: bringing focused thinking, thoughtful engineering and creative energy together to turn complex challenges into useful digital experiences.</p>
+            <p style="margin-top:.9rem">At OjarisLabs, that idea shapes how we approach technology and how we create impact.</p>
+            <div style="margin-top:1.75rem"><a class="btn btn--outline-light" href="${base}about.html">Our Philosophy ${icon("arrow", "arrow")}</a></div>
           </div>
           <div class="ojas-orbit reveal">
             <span class="ojas-glow" aria-hidden="true"></span>
@@ -168,65 +166,57 @@ export function renderHome() {
       </div>
     </section>
 
-    <!-- 07 — How we turn ideas into impact -->
-    <section class="section bg-white">
-      <div class="container">
-        <div class="section-head section-head--center">
-          ${eyebrow("How We Work", true)}
-          <h2>Less Complexity.<br /><span class="gradient-text">More Momentum.</span></h2>
-          <p>We combine business thinking, design and engineering to move from an idea to a working digital product without unnecessary complexity.</p>
-        </div>
-        <div class="steps">
-          ${steps.map((s, i) => `<div class="step-row reveal" style="--i:${i}"><div class="step-num"><span>${s.no}</span></div><div class="step-card"><h3>${s.t}</h3><p>${s.d}</p></div></div>`).join("\n          ")}
-        </div>
-      </div>
-    </section>
-
-    <!-- 08 — Why OjarisLabs (bento) -->
+    <!-- 07 — Why OjarisLabs -->
     <section class="section bg-light">
       <div class="container">
-        <div class="section-head section-head--center">
-          ${eyebrow("Why OjarisLabs", true)}
-          <h2>Built on Experience.<br /><span class="gradient-text">Focused on What Comes Next.</span></h2>
-        </div>
-        <div class="bento">
-          ${bento.map((b, i) => `<article class="bento-card reveal${b.lg ? " bento-lg" : ""}" style="--i:${i}"><span class="card-icon ${b.ac}">${icon(b.icon)}</span><h3>${b.t}</h3><p>${b.d}</p></article>`).join("\n          ")}
+        <div class="why-grid">
+          <div class="why-intro reveal">
+            ${eyebrow("Why OjarisLabs")}
+            <h2>Built on Experience.<br /><span class="gradient-text">Focused on What Comes Next.</span></h2>
+            <p class="lead" style="margin-top:1rem">A new brand shaped by practical, hands-on experience — and built for what comes next.</p>
+          </div>
+          <div class="why-cards">
+            ${bento.map((b, i) => `<article class="why-card reveal" style="--i:${i}"><span class="card-icon ${b.ac}">${icon(b.icon)}</span><h3>${b.t}</h3><p>${b.d}</p></article>`).join("\n            ")}
+          </div>
+          <div class="why-visual reveal" aria-hidden="true">
+            <img src="${base}assets/images/why-visual.svg" width="400" height="400" loading="lazy" decoding="async" alt="" />
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- 09 — Technology ecosystem -->
+    <!-- 08 — Technology capabilities band -->
     <section class="section bg-dark">
       <div class="container">
         <div class="section-head section-head--center">
           ${eyebrow("Built Across the Modern Digital Stack", true)}
           <h2>The Right Technology.<br /><span class="gradient-text">For the Right Problem.</span></h2>
         </div>
-        <div class="card-grid cols-3">
-          ${ecosystem.map((c, i) => `<article class="card card--dark reveal" style="--i:${i % 3}"><span class="card-icon ${c.ac}">${icon(c.icon)}</span><h3>${c.t}</h3><div class="tech-chips">${c.items.map((x) => `<span>${x}</span>`).join("")}</div></article>`).join("\n          ")}
+        <div class="tech-band">
+          ${ecosystem.map((c, i) => `<div class="tech-col reveal" style="--i:${i % 3}"><span class="tech-col-ico ${c.ac}">${icon(c.icon)}</span><h3>${c.t}</h3><ul>${c.items.map((x) => `<li>${x}</li>`).join("")}</ul></div>`).join("\n          ")}
         </div>
-        <p style="text-align:center;font-size:var(--fs-xs);color:var(--text-on-dark-muted);margin-top:1.75rem">Technologies we build with. Names and logos shown are not clients or official partners.</p>
+        <p style="text-align:center;font-size:var(--fs-xs);color:var(--text-on-dark-muted);margin-top:1.75rem">Technologies we build with. Names shown are not clients or official partners.</p>
       </div>
     </section>
 
-    <!-- 10 — FAQ -->
+    <!-- 09 — FAQ -->
     <section class="section bg-light">
       <div class="container">
-        <div class="split" style="align-items:start">
+        <div class="faq-layout">
           <div class="reveal">
             ${eyebrow("FAQ")}
             <h2>Questions Before<br /><span class="gradient-text">We Build?</span></h2>
-            <p class="lead" style="margin-top:1rem">Clear answers to help you understand how we work and whether OjarisLabs is the right fit for your next digital project.</p>
+            <p class="lead" style="margin-top:1rem">Clear answers to help you understand how we work and whether OjarisLabs is the right fit for your project.</p>
             <p style="margin-top:1rem">Still have a question? <a href="${base}contact.html" style="color:var(--oj-purple);font-weight:600">Let's Connect &rarr;</a></p>
           </div>
-          <div>
+          <div class="faq-grid">
             ${faqBlock(HOME_FAQ)}
           </div>
         </div>
       </div>
     </section>
 
-    <!-- 11 — Final CTA -->
+    <!-- 10 — Final CTA -->
     <section class="cta-hero">
       <img class="cta-orbital" src="${base}assets/images/hero-orbital.svg" width="360" height="360" loading="lazy" decoding="async" alt="" />
       <div class="container container--narrow" style="position:relative;z-index:1;text-align:center">
@@ -255,7 +245,7 @@ export function renderHome() {
     { "@context": "https://schema.org", "@type": "WebSite", "@id": SITE_URL + "/#website", url: SITE_URL + "/", name: "OjarisLabs", publisher: { "@id": SITE_URL + "/#org" } },
     faqJsonLd(HOME_FAQ)
   ];
-  return page({ base, activeKey: "home", title: "OjarisLabs | Web, Software, AI & Digital Engineering", description: "OjarisLabs helps businesses build, automate and grow with web development, custom software, AI, eCommerce, mobile apps, SEO and digital engineering.", canonicalPath: "", jsonLd, main });
+  return page({ base, activeKey: "home", title: "OjarisLabs | Web, Software, AI & Digital Engineering", description: "OjarisLabs builds modern websites, custom software, AI automation, eCommerce experiences and scalable digital solutions for businesses ready to grow.", canonicalPath: "", jsonLd, main, preloadImage: "assets/images/hero-home-energy.svg", bodyClass: "page-home" });
 }
 
 /* ============================ SERVICES ============================ */

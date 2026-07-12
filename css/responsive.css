@@ -75,6 +75,11 @@
   .ojas-core { order: -1; }
   .bento { grid-template-columns: 1fr; }
   .bento-lg { grid-column: auto; }
+  .page-home .why-grid { grid-template-columns: 1fr; }
+  .page-home .why-visual { display: none; }
+  .page-home .tech-band { grid-template-columns: repeat(3, 1fr); }
+  .page-home .faq-layout { grid-template-columns: 1fr; }
+  .page-home .faq-grid .faq-list { grid-template-columns: 1fr; }
 }
 
 /* ---- Small tablet ---- */
@@ -109,6 +114,8 @@
   .hero-stats { gap: 1.25rem 2rem; }
   .stats-strip { grid-template-columns: repeat(2, 1fr); }
   .cap-strip { grid-template-columns: 1fr; }
+  .page-home .why-cards { grid-template-columns: 1fr; }
+  .page-home .tech-band { grid-template-columns: repeat(2, 1fr); }
 
   .contact-info { gap: 0.75rem; }
   .newsletter-form { flex-direction: column; }

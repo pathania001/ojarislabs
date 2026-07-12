@@ -99,7 +99,8 @@ export const HOME_FAQ = [
   { q: "Do you provide ongoing support after launch?", a: "Yes. We offer maintenance, monitoring, performance work and iterative improvements so your product keeps evolving after go-live." },
   { q: "Can you work with an existing website or software product?", a: "Absolutely. We regularly take over, audit, extend and modernize existing codebases, sites and stores rather than always starting from scratch." },
   { q: "Do you provide AI and automation services?", a: "Yes — practical, well-scoped AI integrations and workflow automation such as assistants, document processing, lead qualification and CRM automation, connected through APIs to your existing tools." },
-  { q: "Can you work with remote and international clients?", a: "Yes. We operate remote-first and collaborate with businesses across locations and time zones." }
+  { q: "Can you work with remote and international clients?", a: "Yes. We operate remote-first and collaborate with businesses across locations and time zones." },
+  { q: "How do we start a project?", a: "Start with a short message about your goals through our contact page. We'll reply within one business day, ask a few clarifying questions and propose a practical way forward — no obligation." }
 ];
 
 export const SERVICES_FAQ = [
